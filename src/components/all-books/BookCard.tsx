@@ -8,7 +8,7 @@ type BookCardProps = {
 };
 
 const BookCard = ({ book }: BookCardProps) => {
-    console.log("all books from here",book);
+    
   return (
     <div className="group rounded-xl border border-slate-100 bg-white p-4 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
       {/* Book Image */}

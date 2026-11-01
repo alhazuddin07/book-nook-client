@@ -38,12 +38,17 @@ import {
 import { authClient } from "@/lib/auth-client";
 import { Separator } from "@base-ui/react";
 
-const navLinks = [
+const privetNavLinks = [
   { name: "Home", href: "/", icon: House },
   { name: "All Books", href: "/all-books", icon: Library },
   { name: "Add Book", href: "/add-book", icon: Plus },
   { name: "My Books", href: "/my-books", icon: BookOpen },
   { name: "My Borrows", href: "/my-borrows", icon: BookMarked },
+];
+
+const publicNavLinks = [
+  { name: "Home", href: "/", icon: House },
+  { name: "All Books", href: "/all-books", icon: Library },
 ];
 
 export default function Navbar() {
@@ -52,6 +57,8 @@ export default function Navbar() {
 
   const { data: session } = authClient.useSession();
   const user = session?.user
+
+  const navLinks = session?.user ? privetNavLinks : publicNavLinks;
 
   const isActive = (href: string) => {
     if (href === "/") return pathname === "/";
