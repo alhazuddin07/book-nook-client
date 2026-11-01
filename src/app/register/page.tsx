@@ -21,6 +21,7 @@ import { Label } from "@/components/ui/label";
 import { authClient } from "@/lib/auth-client";
 import { redirect, useRouter } from "next/navigation";
 import { toast } from "@/components/ui/toast";
+import { FcGoogle } from "react-icons/fc";
 
 
 
@@ -68,6 +69,12 @@ export default function RegisterPage() {
             });
         };
 
+    };
+
+    const handleSignInSocial = async()=> {
+        const data = await authClient.signIn.social({
+            provider: "google",
+        });
     };
 
     return (
@@ -306,6 +313,43 @@ export default function RegisterPage() {
                             </Button>
 
                         </form>
+
+                        <div className="space-y-5 mt-5">
+
+                            {/* Divider */}
+                            <div className="flex items-center gap-4">
+                                <div className="h-px flex-1 bg-border" />
+
+                                <span className="text-xs font-medium tracking-widest text-muted-foreground">
+                                    OR CONTINUE WITH
+                                </span>
+
+                                <div className="h-px flex-1 bg-border" />
+                            </div>
+
+                            {/* Google Button */}
+                            <Button
+                                onClick={handleSignInSocial}
+                                type="button"
+                                variant="outline"
+                                className="
+                                    group h-12 w-full gap-3 rounded-xl
+                                    border border-border
+                                    bg-card text-foreground
+                                    font-semibold shadow-sm
+                                    transition-all duration-300
+                                    hover:border-brand
+                                    hover:bg-brand-soft
+                                    hover:text-brand
+                                    hover:shadow-md
+                                "
+                            >
+                                <FcGoogle className="size-5 transition-transform duration-300 group-hover:scale-110" />
+
+                                Continue with Google
+                            </Button>
+
+                        </div>
 
                         {/* Login Link */}
                         <div className="mt-8 text-center">
