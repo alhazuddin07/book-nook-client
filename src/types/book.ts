@@ -7,3 +7,16 @@ export type Book = {
   image: string;
   description: string;
 };
+
+export type Borrow = {
+  _id: string;
+  bookId: string;
+  name?: string;
+  email: string;
+  imageUrl?: string;
+  bookinDate: string;
+  title: string;
+  author: string;
+  category: string;
+  image: string;
+};

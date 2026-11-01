@@ -7,6 +7,7 @@ import Link from "next/link";
 import { Book } from "@/types/book";
 import { authClient } from "@/lib/auth-client";
 import { useState, useEffect } from "react";
+import { toast } from "@/components/ui/toast";
 
 
 import {
@@ -53,10 +54,31 @@ const BorrowBooks = ({ books }: { books: Book }) => {
     }, [user?.email, books?._id]);
 
 
+    const handleAlreadyBorrowedClick = () => {
+        toast.add({
+            type: "warning",
+            title: "Already Borrowed",
+            description:
+                "You already borrowed this book. Return it from My Borrows before borrowing it again.",
+        });
+    };
+
     const handleBorrowBooks = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        if (remainingCopies <= 0) return;
+        if (alreadyBorrowed) {
+            handleAlreadyBorrowedClick();
+            return;
+        }
+
+        if (remainingCopies <= 0) {
+            toast.add({
+                type: "error",
+                title: "Not Available",
+                description: "There are no copies of this book left to borrow.",
+            });
+            return;
+        }
 
         const data = {
             bookId: books._id,
@@ -71,35 +93,52 @@ const BorrowBooks = ({ books }: { books: Book }) => {
             image: books.image,
         };
 
-        const res = await fetch('http://localhost:5000/my-borrow', {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data)
-        });
+        try {
+            const res = await fetch('http://localhost:5000/my-borrow', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            });
 
-        if (!res.ok) {
-            console.log("Borrow failed");
-            return;
-        };
+            const result = await res.json();
 
-        const borrowData = await res.json();
-
-        const updateRes = await fetch(
-            `http://localhost:5000/book/${books._id}`,
-            {
-                method: "PATCH",
+            if (res.status === 409) {
+                setAlreadyBorrowed(true);
+                handleAlreadyBorrowedClick();
+                return;
             }
-        );
 
-        if (!updateRes.ok) {
-            const errorData = await updateRes.json();
-            console.log(errorData.message);
-            return;
+            if (!res.ok) {
+                toast.add({
+                    type: "error",
+                    title: "Could Not Borrow",
+                    description:
+                        result.message || "Something went wrong. Please try again.",
+                });
+                return;
+            }
+
+            const copiesLeft = result.remainingCopies ?? Math.max(0, remainingCopies - 1);
+
+            setRemainingCopies(copiesLeft);
+            setAlreadyBorrowed(true);
+
+            toast.add({
+                type: "success",
+                title: "Book Borrowed",
+                description: `"${books.title}" is yours for 7 days. ${copiesLeft} ${copiesLeft === 1 ? "copy" : "copies"} left.`,
+            });
+        } catch (error) {
+            console.error("Borrow failed:", error);
+
+            toast.add({
+                type: "error",
+                title: "Could Not Borrow",
+                description: "Please check the server and try again.",
+            });
         }
-
-        setRemainingCopies((prev) => Math.max(0, prev - 1));
     };
 
     return (
@@ -175,6 +214,16 @@ const BorrowBooks = ({ books }: { books: Book }) => {
                 {/* Action Buttons */}
                 <div className="mt-8 flex flex-col gap-3 sm:flex-row">
 
+                    {alreadyBorrowed ? (
+                        <Button
+                            type="button"
+                            onClick={handleAlreadyBorrowedClick}
+                            className="h-12 flex-1 rounded-xl bg-purple-700 text-base font-semibold text-white shadow-md hover:bg-purple-800"
+                        >
+                            <BookMarked className="mr-1 size-5" />
+                            Already Borrowed
+                        </Button>
+                    ) : (
                     <Popover>
                         <PopoverTrigger
                             render={
@@ -182,7 +231,6 @@ const BorrowBooks = ({ books }: { books: Book }) => {
                                     type="button"
                                     disabled={
                                         remainingCopies <= 0 ||
-                                        alreadyBorrowed ||
                                         checkingBorrow
                                     }
                                     className="h-12 flex-1 rounded-xl bg-purple-700 text-base font-semibold text-white shadow-md hover:bg-purple-800 disabled:cursor-not-allowed disabled:bg-gray-400"
@@ -193,23 +241,21 @@ const BorrowBooks = ({ books }: { books: Book }) => {
 
                             {checkingBorrow
                                 ? "Checking..."
-                                : alreadyBorrowed
-                                    ? "Already Borrowed"
-                                    : remainingCopies > 0
-                                        ? "Borrow This Book"
-                                        : "Not Available"}
+                                : remainingCopies > 0
+                                    ? "Borrow This Book"
+                                    : "Not Available"}
                         </PopoverTrigger>
 
                         <PopoverContent
                             align="start"
-                            className="w-85 rounded-xl border border-gray-700 bg-[#101c17] p-5 text-white shadow-xl"
+                            className="w-85 rounded-xl border border-purple-100 bg-white p-5 text-slate-900 shadow-xl"
                         >
                             <PopoverHeader className="mb-5">
-                                <PopoverTitle className="text-lg font-semibold text-white">
+                                <PopoverTitle className="text-lg font-semibold text-[#160d32]">
                                     Borrow &quot;{books?.title}&quot;
                                 </PopoverTitle>
 
-                                <PopoverDescription className="mt-1 text-sm text-gray-400">
+                                <PopoverDescription className="mt-1 text-sm text-slate-500">
                                     You can keep this book for 7 days.
                                 </PopoverDescription>
                             </PopoverHeader>
@@ -219,7 +265,7 @@ const BorrowBooks = ({ books }: { books: Book }) => {
                                 <div className="space-y-2">
                                     <label
                                         htmlFor="userName"
-                                        className="text-sm font-semibold text-gray-200"
+                                        className="text-sm font-semibold text-slate-700"
                                     >
                                         User Name
                                     </label>
@@ -230,14 +276,14 @@ const BorrowBooks = ({ books }: { books: Book }) => {
                                         readOnly
                                         placeholder={user?.name}
                                         required
-                                        className="h-11 w-full rounded-lg border border-gray-600 bg-[#1c2923] px-3 text-sm text-white outline-none transition focus:border-emerald-400 focus:ring-1 focus:ring-emerald-400"
+                                        className="h-11 w-full rounded-lg border border-purple-100 bg-[#fafaff] px-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-purple-500 focus:ring-1 focus:ring-purple-200"
                                     />
                                 </div>
 
                                 <div className="space-y-2">
                                     <label
                                         htmlFor="userEmail"
-                                        className="text-sm font-semibold text-gray-200"
+                                        className="text-sm font-semibold text-slate-700"
                                     >
                                         User Email
                                     </label>
@@ -248,14 +294,14 @@ const BorrowBooks = ({ books }: { books: Book }) => {
                                         type="email"
                                         placeholder={user?.email}
                                         required
-                                        className="h-11 w-full rounded-lg border border-gray-700 bg-[#1c2923] px-3 text-sm text-white outline-none transition focus:border-emerald-400 focus:ring-1 focus:ring-emerald-400"
+                                        className="h-11 w-full rounded-lg border border-purple-100 bg-[#fafaff] px-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-purple-500 focus:ring-1 focus:ring-purple-200"
                                     />
                                 </div>
 
                                 <div className="flex justify-end pt-2">
                                     <Button
                                         type="submit"
-                                        className="h-10 rounded-lg bg-emerald-300 px-5 font-semibold text-emerald-950 hover:bg-emerald-400"
+                                        className="h-10 rounded-lg bg-purple-700 px-5 font-semibold text-white shadow-md shadow-purple-200 transition hover:bg-purple-800"
                                     >
                                         Confirm Borrow
                                     </Button>
@@ -264,6 +310,7 @@ const BorrowBooks = ({ books }: { books: Book }) => {
                             </form>
                         </PopoverContent>
                     </Popover>
+                    )}
 
                     <Link
                         href="/all-books"
