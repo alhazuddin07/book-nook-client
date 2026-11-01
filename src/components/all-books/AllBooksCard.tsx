@@ -57,7 +57,7 @@ const AllBooksContent = ({ books }: AllBooksContentProps) => {
   };
 
   return (
-    <section className="min-h-screen bg-[#f7f7ff] px-4 py-10">
+    <section className="min-h-screen bg-[#f7f7ff] px-4 py-10 dark:bg-surface-muted">
       <div className="mx-auto max-w-6xl">
         <AllBooksHeader />
 

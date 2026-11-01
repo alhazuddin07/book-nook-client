@@ -96,7 +96,7 @@ export default function HeroBanner() {
                   <div className="mt-8 flex flex-wrap items-center gap-4">
                     <Button
                       className="h-12 rounded-xl bg-purple-600 px-6 font-bold text-white shadow-lg shadow-purple-950/30 hover:bg-purple-500"
-                      render={<Link href="/books" />}
+                      render={<Link href="/all-books" />}
                       nativeButton={false}
                     >
                       <BookOpen className="mr-2 size-5" />
@@ -105,7 +105,7 @@ export default function HeroBanner() {
                     </Button>
 
                     <Link
-                      href="/books"
+                      href="/all-books"
                       className="text-sm font-semibold text-white underline-offset-4 transition hover:underline"
                     >
                       Explore Collection
@@ -123,10 +123,10 @@ export default function HeroBanner() {
         </CarouselContent>
 
         {/* Previous Button */}
-        <CarouselPrevious className="left-3 size-10 border-0 bg-white/90 text-purple-800 shadow-lg hover:bg-purple-600 hover:text-white sm:left-5 sm:size-12" />
+        <CarouselPrevious className="left-3 size-10 border-0 bg-white/90 text-purple-800 shadow-lg hover:bg-purple-600 hover:text-white sm:left-5 sm:size-12 dark:bg-white/10 dark:text-white dark:backdrop-blur-sm dark:hover:bg-brand" />
 
         {/* Next Button */}
-        <CarouselNext className="right-3 size-10 border-0 bg-white/90 text-purple-800 shadow-lg hover:bg-purple-600 hover:text-white sm:right-5 sm:size-12" />
+        <CarouselNext className="right-3 size-10 border-0 bg-white/90 text-purple-800 shadow-lg hover:bg-purple-600 hover:text-white sm:right-5 sm:size-12 dark:bg-white/10 dark:text-white dark:backdrop-blur-sm dark:hover:bg-brand" />
       </Carousel>
     </section>
   );

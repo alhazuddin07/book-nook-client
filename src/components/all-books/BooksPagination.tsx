@@ -14,7 +14,7 @@ const BooksPagination = ({
   if (totalPages <= 1) return null;
 
   return (
-    <div className="mt-8 flex items-center justify-center gap-2">
+    <div className="my-10 flex items-center justify-center gap-2">
       <Button
         variant="outline"
         size="sm"
@@ -33,7 +33,7 @@ const BooksPagination = ({
             onClick={() => setCurrentPage(page)}
             className={
               currentPage === page
-                ? "bg-[#4935d4] hover:bg-[#3925bd]"
+                ? "bg-[#4935d4] hover:bg-[#3925bd] dark:bg-brand dark:hover:bg-brand-strong"
                 : ""
             }
           >

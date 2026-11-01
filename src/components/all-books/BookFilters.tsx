@@ -33,15 +33,15 @@ const BookFilters = ({
           placeholder="Search books..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="h-11 border-slate-200 bg-white pr-10 shadow-sm"
+          className="h-11 border-slate-200 bg-white pr-10 shadow-sm dark:border-white/10 dark:bg-surface-raised dark:text-ink"
         />
 
-        <Search className="absolute right-3 top-1/2 size-4 -translate-y-1/2 text-slate-400" />
+        <Search className="absolute right-3 top-1/2 size-4 -translate-y-1/2 text-slate-400 dark:text-ink-muted" />
       </div>
 
       {/* Category */}
       <div className="flex items-center gap-3">
-        <label className="text-sm font-medium text-slate-600">
+        <label className="text-sm font-medium text-slate-600 dark:text-ink-soft">
           Category
         </label>
 
@@ -49,7 +49,7 @@ const BookFilters = ({
           value={category}
           onValueChange={(value) => setCategory(value ?? "all")}
         >
-          <SelectTrigger className="h-11 w-40 border-slate-200 bg-white shadow-sm">
+          <SelectTrigger className="h-11 w-40 border-slate-200 bg-white shadow-sm dark:border-white/10 dark:bg-surface-raised dark:text-ink">
             <SelectValue placeholder="All Categories" />
           </SelectTrigger>
 

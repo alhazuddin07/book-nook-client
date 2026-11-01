@@ -147,18 +147,18 @@ const BorrowBooks = ({ books }: { books: Book }) => {
 
                 {/* Category */}
                 <div className="mb-5">
-                    <Badge className="rounded-full border-0 bg-purple-100 px-4 py-1.5 text-sm font-semibold capitalize text-purple-700 hover:bg-purple-100">
+                    <Badge className="rounded-full border-0 bg-purple-100 px-4 py-1.5 text-sm font-semibold capitalize text-purple-700 hover:bg-purple-100 dark:bg-brand-soft dark:text-brand-ink dark:hover:bg-brand-soft">
                         {books.category}
                     </Badge>
                 </div>
 
                 {/* Title */}
-                <h1 className="text-3xl font-extrabold leading-tight text-[#160d32] md:text-5xl">
+                <h1 className="text-3xl font-extrabold leading-tight text-[#160d32] md:text-5xl dark:text-ink">
                     {books.title}
                 </h1>
 
                 {/* Author */}
-                <div className="mt-4 flex items-center gap-2 text-gray-500">
+                <div className="mt-4 flex items-center gap-2 text-gray-500 dark:text-ink-soft">
                     <User className="size-4" />
                     <p className="text-base font-medium">
                         By {books.author}
@@ -167,17 +167,17 @@ const BorrowBooks = ({ books }: { books: Book }) => {
 
                 {/* Description */}
                 <div className="my-7">
-                    <h3 className="mb-2 text-lg font-bold text-[#160d32]">
+                    <h3 className="mb-2 text-lg font-bold text-[#160d32] dark:text-ink">
                         About This Book
                     </h3>
 
-                    <p className="text-base leading-7 text-gray-600">
+                    <p className="text-base leading-7 text-gray-600 dark:text-ink-soft">
                         {books.description}
                     </p>
                 </div>
 
                 {/* Book Information Box */}
-                <div className="rounded-2xl bg-[#160d32] p-6">
+                <div className="rounded-2xl bg-[#160d32] p-6 dark:border dark:border-white/10 dark:bg-[#1a1329]">
                     <div className="grid grid-cols-2 gap-5">
 
                         {/* Added By */}
@@ -248,14 +248,14 @@ const BorrowBooks = ({ books }: { books: Book }) => {
 
                         <PopoverContent
                             align="start"
-                            className="w-85 rounded-xl border border-purple-100 bg-white p-5 text-slate-900 shadow-xl"
+                            className="w-85 rounded-xl border border-purple-100 bg-white p-5 text-slate-900 shadow-xl dark:border-white/10 dark:bg-surface dark:text-ink dark:shadow-black/40"
                         >
                             <PopoverHeader className="mb-5">
-                                <PopoverTitle className="text-lg font-semibold text-[#160d32]">
+                                <PopoverTitle className="text-lg font-semibold text-[#160d32] dark:text-ink">
                                     Borrow &quot;{books?.title}&quot;
                                 </PopoverTitle>
 
-                                <PopoverDescription className="mt-1 text-sm text-slate-500">
+                                <PopoverDescription className="mt-1 text-sm text-slate-500 dark:text-ink-soft">
                                     You can keep this book for 7 days.
                                 </PopoverDescription>
                             </PopoverHeader>
@@ -265,7 +265,7 @@ const BorrowBooks = ({ books }: { books: Book }) => {
                                 <div className="space-y-2">
                                     <label
                                         htmlFor="userName"
-                                        className="text-sm font-semibold text-slate-700"
+                                        className="text-sm font-semibold text-slate-700 dark:text-ink-soft"
                                     >
                                         User Name
                                     </label>
@@ -276,14 +276,14 @@ const BorrowBooks = ({ books }: { books: Book }) => {
                                         readOnly
                                         placeholder={user?.name}
                                         required
-                                        className="h-11 w-full rounded-lg border border-purple-100 bg-[#fafaff] px-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-purple-500 focus:ring-1 focus:ring-purple-200"
+                                        className="h-11 w-full rounded-lg border border-purple-100 bg-[#fafaff] px-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-purple-500 focus:ring-1 focus:ring-purple-200 dark:border-white/10 dark:bg-surface-raised dark:text-ink dark:placeholder:text-ink-muted dark:focus:border-brand"
                                     />
                                 </div>
 
                                 <div className="space-y-2">
                                     <label
                                         htmlFor="userEmail"
-                                        className="text-sm font-semibold text-slate-700"
+                                        className="text-sm font-semibold text-slate-700 dark:text-ink-soft"
                                     >
                                         User Email
                                     </label>
@@ -294,7 +294,7 @@ const BorrowBooks = ({ books }: { books: Book }) => {
                                         type="email"
                                         placeholder={user?.email}
                                         required
-                                        className="h-11 w-full rounded-lg border border-purple-100 bg-[#fafaff] px-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-purple-500 focus:ring-1 focus:ring-purple-200"
+                                        className="h-11 w-full rounded-lg border border-purple-100 bg-[#fafaff] px-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-purple-500 focus:ring-1 focus:ring-purple-200 dark:border-white/10 dark:bg-surface-raised dark:text-ink dark:placeholder:text-ink-muted dark:focus:border-brand"
                                     />
                                 </div>
 
@@ -314,7 +314,7 @@ const BorrowBooks = ({ books }: { books: Book }) => {
 
                     <Link
                         href="/all-books"
-                        className="inline-flex h-12 items-center justify-center rounded-xl border border-purple-200 px-6 text-purple-700 hover:bg-purple-50"
+                        className="inline-flex h-12 items-center justify-center rounded-xl border border-purple-200 px-6 text-purple-700 hover:bg-purple-50 dark:border-white/15 dark:text-brand-ink dark:hover:bg-brand-soft"
                     >
                         <BookOpen className="mr-2 size-4" />
                         All Books

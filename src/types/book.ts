@@ -6,6 +6,8 @@ export type Book = {
   totalCopies: number;
   image: string;
   description: string;
+  userName?: string;
+  userEmail?: string;
 };
 
 export type Borrow = {

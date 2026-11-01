@@ -9,11 +9,11 @@ const BooksGrid = ({ books }: BooksGridProps) => {
   if (books.length === 0) {
     return (
       <div className="rounded-xl border border-dashed py-16 text-center">
-        <h3 className="text-lg font-semibold text-slate-700">
+        <h3 className="text-lg font-semibold text-slate-700 dark:text-ink">
           No books found!
         </h3>
 
-        <p className="mt-1 text-sm text-slate-500">
+        <p className="mt-1 text-sm text-slate-500 dark:text-ink-soft">
           Try searching with another title or category.
         </p>
       </div>

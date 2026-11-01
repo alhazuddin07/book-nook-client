@@ -35,6 +35,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import ThemeToggle from "@/components/theme/ThemeToggle";
 import { authClient } from "@/lib/auth-client";
 import { Separator } from "@base-ui/react";
 
@@ -71,20 +72,20 @@ export default function Navbar() {
 
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-purple-100 bg-white/95 backdrop-blur-md">
+    <header className="sticky top-0 z-50 w-full border-b border-hairline bg-surface/95 backdrop-blur-md">
       <div className="mx-auto flex h-18 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
 
         {/* Logo */}
         <Link href="/" className="flex shrink-0 items-center gap-2">
-          <div className="flex size-10 items-center justify-center rounded-xl bg-purple-700 text-white shadow-md shadow-purple-200">
+          <div className="flex size-10 items-center justify-center rounded-xl bg-purple-700 text-white shadow-md shadow-purple-200 dark:bg-brand dark:shadow-none">
             <BookOpen className="size-6" />
           </div>
 
           <div>
-            <h1 className="text-xl font-extrabold tracking-tight text-purple-950">
-              Book<span className="text-purple-600">Nook</span>
+            <h1 className="text-xl font-extrabold tracking-tight text-purple-950 dark:text-brand-ink">
+              Book<span className="text-purple-600 dark:text-brand">Nook</span>
             </h1>
-            <p className="text-[10px] font-medium tracking-wider text-gray-500">
+            <p className="text-[10px] font-medium tracking-wider text-gray-500 dark:text-ink-muted">
               YOUR LITTLE READING SPACE
             </p>
           </div>
@@ -97,8 +98,8 @@ export default function Navbar() {
               key={link.href}
               href={link.href}
               className={`rounded-lg px-3 py-2 text-sm font-semibold transition-colors ${isActive(link.href)
-                ? "bg-purple-100 text-purple-800"
-                : "text-gray-600 hover:bg-purple-50 hover:text-purple-700"
+                ? "bg-purple-100 text-purple-800 dark:bg-brand-soft dark:text-brand-ink"
+                : "text-gray-600 hover:bg-purple-50 hover:text-purple-700 dark:text-ink-soft dark:hover:bg-brand-soft dark:hover:text-brand-ink"
                 }`}
             >
               {link.name}
@@ -106,170 +107,175 @@ export default function Navbar() {
           ))}
         </nav>
 
-        {
-          user ? (
-            <Popover>
-              <PopoverTrigger
-                nativeButton={true}
-                render={
-                  <button className="rounded-full outline-none ring-offset-2 transition-all hover:ring-2 hover:ring-purple-300">
-                    <Avatar className="size-10 cursor-pointer border-2 border-purple-200 shadow-sm">
-                      <AvatarImage src={user?.image ?? undefined} />
-                      <AvatarFallback className="bg-purple-100 font-bold text-purple-700">
-                        {user?.name?.charAt(0).toUpperCase() || "U"}
-                      </AvatarFallback>
-                    </Avatar>
-                  </button>
-                }
-              />
+        {/* Right side actions */}
+        <div className="flex items-center gap-2 sm:gap-3">
+          <ThemeToggle />
 
-              <PopoverContent
-                align="end"
-                sideOffset={12}
-                className="w-72 rounded-2xl border border-purple-100 bg-white p-0 shadow-xl shadow-purple-100/50"
-              >
-                <div className="p-4">
-
-                  {/* User Information */}
-                  <div className="flex items-center gap-3">
-                    <Avatar className="size-12 border-2 border-purple-100">
-                      <AvatarImage src={user?.image ?? undefined} />
-                      <AvatarFallback className="bg-purple-100 font-bold text-purple-700">
-                        {user?.name?.charAt(0).toUpperCase() || "U"}
-                      </AvatarFallback>
-                    </Avatar>
-
-                    <div className="min-w-0 flex-1">
-                      <p className="truncate text-sm font-bold text-purple-950">
-                        {user?.name}
-                      </p>
-
-                      <p className="truncate text-xs text-gray-500">
-                        {user?.email}
-                      </p>
-                    </div>
-                  </div>
-
-                  <Separator className="my-4" />
-
-                  {/* Profile Link */}
-                  <Link
-                    href="/profile"
-                    className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-gray-700 transition-colors hover:bg-purple-50 hover:text-purple-700"
-                  >
-                    <UserRound className="size-4" />
-                    My Profile
-                  </Link>
-
-                  {/* Sign Out */}
-                  <Button
-                    nativeButton={true}
-                    variant="ghost"
-                    onClick={handleSignOut}
-                    className="mt-2 w-full justify-start gap-3 rounded-lg px-3 text-sm font-semibold text-red-600 hover:bg-red-50 hover:text-red-700"
-                  >
-                    <LogOut className="size-4" />
-                    Sign Out
-                  </Button>
-
-                </div>
-              </PopoverContent>
-            </Popover>
-          ) : (
-            <div className="hidden items-center gap-3 lg:flex">
-              <Button
-                variant="ghost"
-                className="font-semibold text-purple-700 hover:bg-purple-50 hover:text-purple-800"
-                render={<Link href="/login" />}
-                nativeButton={false}
-              >
-                Login
-              </Button>
-
-              <Button
-                className="rounded-lg bg-purple-700 px-5 font-semibold text-white shadow-md shadow-purple-200 hover:bg-purple-800"
-                render={<Link href="/register" />}
-                nativeButton={false}
-              >
-                Register
-              </Button>
-            </div>
-          )
-        }
-
-
-        {/* Mobile Navigation */}
-        <div className="lg:hidden">
-          <Sheet open={open} onOpenChange={setOpen}>
-            <SheetTrigger
-              render={
-                <Button
-                  variant="outline"
-                  size="icon"
-                  className="border-purple-200 text-purple-700 hover:bg-purple-50"
+          {
+            user ? (
+              <Popover>
+                <PopoverTrigger
+                  nativeButton={true}
+                  render={
+                    <button className="rounded-full outline-none ring-offset-2 transition-all hover:ring-2 hover:ring-purple-300 dark:hover:ring-brand/50">
+                      <Avatar className="size-10 cursor-pointer border-2 border-purple-200 shadow-sm dark:border-white/15">
+                        <AvatarImage src={user?.image ?? undefined} />
+                        <AvatarFallback className="bg-purple-100 font-bold text-purple-700 dark:bg-brand-soft dark:text-brand-ink">
+                          {user?.name?.charAt(0).toUpperCase() || "U"}
+                        </AvatarFallback>
+                      </Avatar>
+                    </button>
+                  }
                 />
-              }
-            >
-              <Menu className="size-5" />
-            </SheetTrigger>
 
-            <SheetContent side="right" className="w-75 sm:w-87.5">
-              <SheetHeader>
-                <SheetTitle className="flex items-center gap-2 text-purple-900">
-                  <BookOpen className="size-6 text-purple-700" />
-                  BookNook
-                </SheetTitle>
-              </SheetHeader>
+                <PopoverContent
+                  align="end"
+                  sideOffset={12}
+                  className="w-72 rounded-2xl border border-hairline bg-surface p-0 shadow-xl shadow-purple-100/50 dark:shadow-black/40"
+                >
+                  <div className="p-4">
 
-              <div className="mt-6 flex flex-col gap-2">
+                    {/* User Information */}
+                    <div className="flex items-center gap-3">
+                      <Avatar className="size-12 border-2 border-purple-100 dark:border-white/15">
+                        <AvatarImage src={user?.image ?? undefined} />
+                        <AvatarFallback className="bg-purple-100 font-bold text-purple-700 dark:bg-brand-soft dark:text-brand-ink">
+                          {user?.name?.charAt(0).toUpperCase() || "U"}
+                        </AvatarFallback>
+                      </Avatar>
 
-                {/* Navigation Links */}
-                {navLinks.map((link) => {
-                  const Icon = link.icon;
+                      <div className="min-w-0 flex-1">
+                        <p className="truncate text-sm font-bold text-purple-950 dark:text-brand-ink">
+                          {user?.name}
+                        </p>
 
-                  return (
+                        <p className="truncate text-xs text-gray-500 dark:text-ink-muted">
+                          {user?.email}
+                        </p>
+                      </div>
+                    </div>
+
+                    <Separator className="my-4" />
+
+                    {/* Profile Link */}
                     <Link
-                      key={link.href}
-                      href={link.href}
-                      onClick={() => setOpen(false)}
-                      className={`flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-semibold transition-colors ${isActive(link.href)
-                        ? "bg-purple-100 text-purple-800"
-                        : "text-gray-600 hover:bg-purple-50 hover:text-purple-700"
-                        }`}
+                      href="/profile"
+                      className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-gray-700 transition-colors hover:bg-purple-50 hover:text-purple-700 dark:text-ink-soft dark:hover:bg-brand-soft dark:hover:text-brand-ink"
                     >
-                      <Icon className="size-5" />
-                      {link.name}
+                      <UserRound className="size-4" />
+                      My Profile
                     </Link>
-                  );
-                })}
+
+                    {/* Sign Out */}
+                    <Button
+                      nativeButton={true}
+                      variant="ghost"
+                      onClick={handleSignOut}
+                      className="mt-2 w-full justify-start gap-3 rounded-lg px-3 text-sm font-semibold text-red-600 hover:bg-red-50 hover:text-red-700 dark:text-red-400 dark:hover:bg-red-500/15 dark:hover:text-red-300"
+                    >
+                      <LogOut className="size-4" />
+                      Sign Out
+                    </Button>
+
+                  </div>
+                </PopoverContent>
+              </Popover>
+            ) : (
+              <div className="hidden items-center gap-3 lg:flex">
+                <Button
+                  variant="ghost"
+                  className="font-semibold text-purple-700 hover:bg-purple-50 hover:text-purple-800 dark:text-brand-ink dark:hover:bg-brand-soft dark:hover:text-brand-ink"
+                  render={<Link href="/login" />}
+                  nativeButton={false}
+                >
+                  Login
+                </Button>
+
+                <Button
+                  className="rounded-lg bg-purple-700 px-5 font-semibold text-white shadow-md shadow-purple-200 hover:bg-purple-800 dark:bg-brand dark:shadow-none dark:hover:bg-brand-strong"
+                  render={<Link href="/register" />}
+                  nativeButton={false}
+                >
+                  Register
+                </Button>
+              </div>
+            )
+          }
 
 
-
-                {/* Login & Register */}
-                <div className="mt-4 flex flex-col gap-3">
+          {/* Mobile Navigation */}
+          <div className="lg:hidden">
+            <Sheet open={open} onOpenChange={setOpen}>
+              <SheetTrigger
+                render={
                   <Button
                     variant="outline"
-                    className="border-purple-200 text-purple-700"
-                    render={<Link href="/login" />}
-                    nativeButton={false}
-                    onClick={() => setOpen(false)}
-                  >
-                    Login
-                  </Button>
+                    size="icon"
+                    className="border-purple-200 text-purple-700 hover:bg-purple-50 dark:border-white/15 dark:bg-surface-raised dark:text-brand-ink dark:hover:bg-brand-soft"
+                  />
+                }
+              >
+                <Menu className="size-5" />
+              </SheetTrigger>
 
-                  <Button
-                    className="bg-purple-700 text-white hover:bg-purple-800"
-                    render={<Link href="/register" />}
-                    nativeButton={false}
-                    onClick={() => setOpen(false)}
-                  >
-                    Register
-                  </Button>
+              <SheetContent side="right" className="w-75 sm:w-87.5">
+                <SheetHeader>
+                  <SheetTitle className="flex items-center gap-2 text-purple-900 dark:text-brand-ink">
+                    <BookOpen className="size-6 text-purple-700 dark:text-brand" />
+                    BookNook
+                  </SheetTitle>
+                </SheetHeader>
+
+                <div className="mt-6 flex flex-col gap-2">
+
+                  {/* Navigation Links */}
+                  {navLinks.map((link) => {
+                    const Icon = link.icon;
+
+                    return (
+                      <Link
+                        key={link.href}
+                        href={link.href}
+                        onClick={() => setOpen(false)}
+                        className={`flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-semibold transition-colors ${isActive(link.href)
+                          ? "bg-purple-100 text-purple-800 dark:bg-brand-soft dark:text-brand-ink"
+                          : "text-gray-600 hover:bg-purple-50 hover:text-purple-700 dark:text-ink-soft dark:hover:bg-brand-soft dark:hover:text-brand-ink"
+                          }`}
+                      >
+                        <Icon className="size-5" />
+                        {link.name}
+                      </Link>
+                    );
+                  })}
+
+
+
+                  {/* Login & Register */}
+                  <div className="mt-4 flex flex-col gap-3">
+                    <Button
+                      variant="outline"
+                      className="border-purple-200 text-purple-700 dark:border-white/15 dark:bg-surface-raised dark:text-brand-ink dark:hover:bg-brand-soft"
+                      render={<Link href="/login" />}
+                      nativeButton={false}
+                      onClick={() => setOpen(false)}
+                    >
+                      Login
+                    </Button>
+
+                    <Button
+                      className="bg-purple-700 text-white hover:bg-purple-800 dark:bg-brand dark:hover:bg-brand-strong"
+                      render={<Link href="/register" />}
+                      nativeButton={false}
+                      onClick={() => setOpen(false)}
+                    >
+                      Register
+                    </Button>
+                  </div>
+
                 </div>
-
-              </div>
-            </SheetContent>
-          </Sheet>
+              </SheetContent>
+            </Sheet>
+          </div>
         </div>
 
       </div>

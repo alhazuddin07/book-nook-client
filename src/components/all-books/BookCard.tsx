@@ -10,9 +10,9 @@ type BookCardProps = {
 const BookCard = ({ book }: BookCardProps) => {
     
   return (
-    <div className="group rounded-xl border border-slate-100 bg-white p-4 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
+    <div className="group rounded-xl border border-slate-100 bg-white p-4 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg dark:border-white/10 dark:bg-surface dark:shadow-none dark:hover:border-brand/40">
       {/* Book Image */}
-      <div className="relative mb-4 flex h-36 items-center justify-center overflow-hidden rounded-lg bg-slate-50">
+      <div className="relative mb-4 flex h-36 items-center justify-center overflow-hidden rounded-lg bg-slate-50 dark:bg-surface-raised">
         {book.image ? (
           <Image
             src={book.image}
@@ -21,21 +21,21 @@ const BookCard = ({ book }: BookCardProps) => {
             className="h-full w-full object-contain p-2 transition-transform duration-300 group-hover:scale-105"
           />
         ) : (
-          <BookOpen className="size-12 text-slate-300" />
+          <BookOpen className="size-12 text-slate-300 dark:text-ink-muted" />
         )}
       </div>
 
       {/* Book Information */}
       <div className="space-y-1">
-        <h2 className="truncate text-base font-bold text-slate-900">
+        <h2 className="truncate text-base font-bold text-slate-900 dark:text-ink">
           {book.title}
         </h2>
 
-        <p className="truncate text-sm text-slate-600">
+        <p className="truncate text-sm text-slate-600 dark:text-ink-soft">
           {book.author}
         </p>
 
-        <p className="text-sm text-slate-400">
+        <p className="text-sm text-slate-400 dark:text-ink-muted">
           {book.category}
         </p>
       </div>
@@ -43,7 +43,7 @@ const BookCard = ({ book }: BookCardProps) => {
       {/* Details Button */}
       <Link
         href={`/all-books/${book._id}`}
-        className="mt-4 flex h-9 w-full items-center justify-center rounded-full bg-[#4935d4] text-sm text-white hover:bg-[#3925bd]"
+        className="mt-4 flex h-9 w-full items-center justify-center rounded-full bg-[#4935d4] text-sm text-white hover:bg-[#3925bd] dark:bg-brand dark:hover:bg-brand-strong"
       >
         View Details
       </Link>
