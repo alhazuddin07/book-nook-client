@@ -60,10 +60,11 @@ export default function RegisterPage() {
 
         if (error) {
             console.log(error);
+
             toast.add({
                 type: "error",
-                title: "Something went wrong!",
-                description: "We couldn't create your account. Please try again later.",
+                title: "Registration Failed!",
+                description: error.message || "Something went wrong. Please try again.",
             });
         };
 

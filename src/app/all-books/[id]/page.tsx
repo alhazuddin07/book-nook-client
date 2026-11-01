@@ -1,6 +1,8 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { auth } from "@/lib/auth";
 import { ArrowLeft, BookMarked, BookOpen, Copy, Mail, User } from "lucide-react";
+import { headers } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -12,6 +14,13 @@ const DetailsPage = async ({ params }: { params: Promise<{ id: string }> }) => {
 
     const res = await fetch(`http://localhost:5000/book/${id}`);
     const books = await res.json();
+
+    const session = await auth.api.getSession({
+        headers: await headers()
+    });
+
+    const user = session?.user
+    console.log(user);
 
     return (
         <section className="min-h-screen bg-[#f8f7ff] px-4 py-12">

@@ -1,0 +1,290 @@
+"use client";
+
+import { useState, type FormEvent } from "react";
+import Link from "next/link";
+
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+
+import {
+    BookOpen,
+    LockKeyhole,
+    Eye,
+    EyeOff,
+    CheckCircle2,
+    Circle,
+    Mail,
+} from "lucide-react";
+import { Label } from "@/components/ui/label";
+import { authClient } from "@/lib/auth-client";
+import { redirect, useRouter } from "next/navigation";
+import { toast } from "@/components/ui/toast";
+import { Separator } from "@/components/ui/separator";
+
+
+
+export default function RegisterPage() {
+    const [showPassword, setShowPassword] = useState(false);
+    const [password, setPassword] = useState("");
+
+    const router = useRouter();
+
+    // Password validation
+    const hasUppercase = /[A-Z]/.test(password);
+    const hasLowercase = /[a-z]/.test(password);
+    const hasOneNumber = /[1-9]/.test(password);
+    const hasMinLength = password.length >= 8;
+
+    const handleLoginFrom = async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        const formData = new FormData(e.currentTarget);
+        const userData = Object.fromEntries(formData.entries()) as { email: string, password: string }
+
+        const { data, error } = await authClient.signIn.email({
+            ...userData,
+        });
+
+        if (data) {
+            console.log(data);
+            router.refresh();
+            toast.add({
+                type: "success",
+                title: "Login Successful!",
+                description: "You have login successfully.",
+            });
+
+            redirect('/');
+        };
+
+        if (error) {
+            console.log(error);
+
+            toast.add({
+                type: "error",
+                title: "Login Failed!",
+                description: error.message || "Something went wrong. Please try again.",
+            });
+        }
+
+    };
+
+    return (
+        <div className="flex min-h-screen items-center justify-center bg-[#f5f3ff] px-4 py-10">
+
+            <div className="mx-auto grid w-full max-w-6xl overflow-hidden rounded-2xl border border-purple-100 bg-white shadow-xl md:grid-cols-2">
+
+                {/* Left Side */}
+                <div className="relative flex min-h-87.5 flex-col items-center justify-center overflow-hidden bg-linear-to-br from-[#29216d] via-[#211957] to-[#160d32] px-8 py-12 text-center text-white md:min-h-162.5 md:items-start md:px-12 md:text-left">
+
+                    {/* Background Decorations */}
+                    <div className="absolute -left-16 -top-16 size-64 rounded-full border-35 border-white/5" />
+
+                    <div className="absolute -bottom-20 -right-16 size-72 rounded-full border-45 border-white/5" />
+
+                    <div className="absolute right-10 top-16 size-5 rotate-45 rounded bg-purple-400/20" />
+
+                    <div className="absolute bottom-32 left-10 size-4 rounded-full bg-purple-400/20" />
+
+                    {/* Content */}
+                    <div className="relative z-10">
+
+                        {/* Logo */}
+                        <div className="mx-auto mb-6 flex size-20 items-center justify-center rounded-full border border-purple-300/20 bg-purple-500/30 shadow-lg shadow-purple-500/20 md:mx-0">
+                            <BookOpen className="size-11 text-purple-200" />
+                        </div>
+
+                        {/* Heading */}
+                        <h1 className="text-3xl font-extrabold tracking-tight md:text-4xl">
+                            Welcome Back!
+                        </h1>
+
+                        <p className="mx-auto mt-4 max-w-sm text-base leading-7 text-purple-100 md:mx-0 md:text-lg">
+                            Login to continue your reading journey.
+                        </p>
+
+                        {/* Book Illustration */}
+                        <div className="relative mt-12 flex h-40 items-center justify-center md:mt-16 md:h-48">
+
+                            <div className="absolute bottom-3 h-5 w-64 rounded-[50%] bg-purple-950/60 blur-sm" />
+
+                            <div className="relative flex items-center justify-center">
+
+                                <div className="absolute -left-7 top-4 h-24 w-28 -rotate-12 rounded-lg border border-purple-200/30 bg-linear-to-br from-purple-100 to-purple-300 shadow-xl" />
+
+                                <div className="absolute -right-7 top-4 h-24 w-28 rotate-12 rounded-lg border border-purple-200/30 bg-linear-to-br from-purple-100 to-purple-300 shadow-xl" />
+
+                                <BookOpen className="relative z-10 size-36 text-[#d8c5ff] drop-shadow-[0_10px_12px_rgba(0,0,0,0.4)] md:size-44" />
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                {/* Right Side - Register Form */}
+                <div className="flex items-center justify-center bg-white px-5 py-10 sm:px-10 md:px-12">
+
+                    <div className="w-full max-w-md">
+
+                        {/* Form Heading */}
+                        <div className="mb-8 text-center">
+                            <h2 className="text-3xl font-extrabold text-[#160d32] md:text-4xl">
+                                Login
+                            </h2>
+
+                            <p className="mt-2 text-sm text-gray-500">
+                                Fill in the details to Login
+                            </p>
+                        </div>
+
+                        {/* Form */}
+                        <form onSubmit={handleLoginFrom} className="space-y-4">
+
+                            {/** Email */}
+                            <div>
+                                <Label htmlFor="email" className="text-sm font-semibold text-gray-700">
+                                    Email
+                                </Label>
+
+                                <div className="relative">
+                                    <Mail className="absolute left-4 top-1/2 size-5 -translate-y-1/2 text-purple-500" />
+
+                                    <Input
+                                        id="email"
+                                        name="email"
+                                        type="email"
+                                        placeholder="Enter your email address"
+                                        autoComplete="email"
+                                        className="h-12 rounded-lg border-purple-100 bg-[#fafaff] pl-12 shadow-sm focus-visible:border-purple-500 focus-visible:ring-purple-200"
+                                        required
+                                    />
+                                </div>
+                            </div>
+
+                            {/* Password */}
+                            <div className="relative">
+                                <LockKeyhole className="absolute left-4 top-1/2 size-5 -translate-y-1/2 text-gray-500" />
+
+                                <Input
+                                    type={showPassword ? "text" : "password"}
+                                    name="password"
+                                    placeholder="Password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    className="h-12 border-purple-100 bg-[#fafaff] pl-12 pr-12 shadow-sm focus-visible:border-purple-500 focus-visible:ring-purple-200"
+                                    required
+                                />
+
+                                <button
+                                    type="button"
+                                    onClick={() => setShowPassword(!showPassword)}
+                                    className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 transition hover:text-purple-700"
+                                    aria-label={showPassword ? "Hide password" : "Show password"}
+                                >
+                                    {showPassword ? (
+                                        <EyeOff className="size-5" />
+                                    ) : (
+                                        <Eye className="size-5" />
+                                    )}
+                                </button>
+                            </div>
+
+                            {/* Password Requirements */}
+                            <div className="space-y-2 px-1 pt-1">
+
+                                <div className="flex items-center gap-2 text-sm">
+                                    {hasUppercase ? (
+                                        <CheckCircle2 className="size-4 text-green-600" />
+                                    ) : (
+                                        <Circle className="size-4 text-gray-400" />
+                                    )}
+
+                                    <span className={hasUppercase ? "text-green-600" : "text-gray-600"}>
+                                        Must have an Uppercase letter
+                                    </span>
+                                </div>
+
+                                <div className="flex items-center gap-2 text-sm">
+                                    {hasLowercase ? (
+                                        <CheckCircle2 className="size-4 text-green-600" />
+                                    ) : (
+                                        <Circle className="size-4 text-gray-400" />
+                                    )}
+
+                                    <span className={hasLowercase ? "text-green-600" : "text-gray-600"}>
+                                        Must have a Lowercase letter
+                                    </span>
+                                </div>
+
+                                <div className="flex items-center gap-2 text-sm">
+                                    {hasOneNumber ? (
+                                        <CheckCircle2 className="size-4 text-green-600" />
+                                    ) : (
+                                        <Circle className="size-4 text-gray-400" />
+                                    )}
+
+                                    <span className={hasOneNumber ? "text-green-600" : "text-gray-600"}>
+                                        Must have a one nmber
+                                    </span>
+                                </div>
+
+                                <div className="flex items-center gap-2 text-sm">
+                                    {hasMinLength ? (
+                                        <CheckCircle2 className="size-4 text-green-600" />
+                                    ) : (
+                                        <Circle className="size-4 text-gray-400" />
+                                    )}
+
+                                    <span className={hasMinLength ? "text-green-600" : "text-gray-600"}>
+                                        At least 8 characters
+                                    </span>
+                                </div>
+
+                            </div>
+
+                            {/* LogIn Button */}
+                            <Button
+                                type="submit"
+                                disabled={!hasUppercase || !hasLowercase || !hasMinLength || !hasOneNumber}
+                                className="mt-5 h-12 w-full rounded-lg bg-linear-to-r from-[#5944cf] to-[#4935b8] text-base font-semibold text-white shadow-md shadow-purple-200 transition hover:from-[#4935b8] hover:to-[#3925a5] disabled:cursor-not-allowed disabled:opacity-50"
+                            >
+                                Login
+                            </Button>
+
+                        </form>
+
+                        <div className="flex items-center gap-3 my-6">
+                            <Separator className="flex-1" />
+
+                            <span className="text-xs font-medium uppercase tracking-wider text-gray-400">
+                                Or continue with
+                            </span>
+
+                            <Separator className="flex-1" />
+                        </div>
+
+                        <div>
+                            social will be here
+                        </div>
+
+                        {/* Login Link */}
+                        <div className="mt-8 text-center">
+                            <p className="text-sm text-gray-600">
+                                Don&apos;t have an account?{" "}
+                                <Link
+                                    href="/register"
+                                    className="font-semibold text-purple-700 transition hover:text-purple-900 hover:underline"
+                                >
+                                    Register
+                                </Link>
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    );
+}
