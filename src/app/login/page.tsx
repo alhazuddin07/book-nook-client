@@ -20,6 +20,7 @@ import { authClient } from "@/lib/auth-client";
 import { redirect, useRouter } from "next/navigation";
 import { toast } from "@/components/ui/toast";
 import { Separator } from "@/components/ui/separator";
+import { FcGoogle } from "react-icons/fc";
 
 
 
@@ -67,6 +68,12 @@ export default function RegisterPage() {
             });
         }
 
+    };
+
+    const handleSignInSocial = async()=> {
+        const data = await authClient.signIn.social({
+            provider: "google",
+        });
     };
 
     return (
@@ -254,18 +261,41 @@ export default function RegisterPage() {
 
                         </form>
 
-                        <div className="flex items-center gap-3 my-6">
-                            <Separator className="flex-1" />
+                        <div className="space-y-5 mt-5">
 
-                            <span className="text-xs font-medium uppercase tracking-wider text-gray-400 dark:text-ink-muted">
-                                Or continue with
-                            </span>
+                            {/* Divider */}
+                            <div className="flex items-center gap-4">
+                                <div className="h-px flex-1 bg-border" />
 
-                            <Separator className="flex-1" />
-                        </div>
+                                <span className="text-xs font-medium tracking-widest text-muted-foreground">
+                                    OR CONTINUE WITH
+                                </span>
 
-                        <div>
-                            social will be here
+                                <div className="h-px flex-1 bg-border" />
+                            </div>
+
+                            {/* Google Button */}
+                            <Button
+                                onClick={handleSignInSocial}
+                                type="button"
+                                variant="outline"
+                                className="
+                                  group h-12 w-full gap-3 rounded-xl
+                                  border border-border
+                                  bg-card text-foreground
+                                  font-semibold shadow-sm
+                                  transition-all duration-300
+                                  hover:border-brand
+                                  hover:bg-brand-soft
+                                  hover:text-brand
+                                  hover:shadow-md
+                                "
+                            >
+                                <FcGoogle className="size-5 transition-transform duration-300 group-hover:scale-110" />
+
+                                Continue with Google
+                            </Button>
+
                         </div>
 
                         {/* Login Link */}
@@ -287,4 +317,4 @@ export default function RegisterPage() {
             </div>
         </div>
     );
-}
+};
