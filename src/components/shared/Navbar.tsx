@@ -66,6 +66,8 @@ export default function Navbar() {
     return pathname === href || pathname.startsWith(`${href}/`);
   };
 
+  const [profileOpen, setProfileOpen] = useState(false);
+
   const handleSignOut = async()=> {
     await authClient.signOut({
       fetchOptions: {
@@ -119,7 +121,7 @@ export default function Navbar() {
 
           {
             user ? (
-              <Popover>
+              <Popover open={profileOpen} onOpenChange={setProfileOpen}>
                 <PopoverTrigger
                   nativeButton={true}
                   render={
@@ -166,6 +168,7 @@ export default function Navbar() {
                     {/* Profile Link */}
                     <Link
                       href="/profile"
+                      onClick={()=> setProfileOpen(false)}
                       className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-gray-700 transition-colors hover:bg-purple-50 hover:text-purple-700 dark:text-ink-soft dark:hover:bg-brand-soft dark:hover:text-brand-ink"
                     >
                       <UserRound className="size-4" />
