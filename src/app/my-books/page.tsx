@@ -21,7 +21,7 @@ import { toast } from "@/components/ui/toast";
 import { authClient } from "@/lib/auth-client";
 import { Book } from "@/types/book";
 
-const API_URL = "http://localhost:5000";
+const API_URL = `${process.env.NEXT_PUBLIC_API_URL}`;
 
 // MongoDB ObjectIds embed their creation timestamp in the first 4 bytes.
 const formatAddedDate = (id: string) => {
@@ -76,15 +76,25 @@ const MyBooksPage = () => {
     const [bookToDelete, setBookToDelete] = useState<Book | null>(null);
     const [deletingId, setDeletingId] = useState<string | null>(null);
 
+    
+
     useEffect(() => {
         if (!email) return;
 
         let cancelled = false;
 
         const loadBooks = async () => {
+
+            const {data, error} = await authClient.token();
+            const token = data?.token;
+
             try {
                 const res = await fetch(
-                    `${API_URL}/my-books?email=${(email)}`
+                    `${API_URL}/my-books?email=${email}`, {
+                        headers: {
+                            authorization: `Bearer ${token}`,
+                        }
+                    }
                 );
                 const data = await res.json();
 
@@ -124,10 +134,17 @@ const MyBooksPage = () => {
 
         setDeletingId(bookToDelete._id);
 
+        const {data, error} = await authClient.token();
+            const token = data?.token;
+
         try {
             const res = await fetch(
-                `${API_URL}/book/${bookToDelete._id}?email=${(email)}`,
-                { method: "DELETE" }
+                `${API_URL}/book/${bookToDelete._id}?email=${email}`,{
+                    method: "DELETE",
+                    headers: {
+                        authorization: `Bearer ${token}`,
+                    },
+                },
             );
             const data = await res.json().catch(() => ({}));
 

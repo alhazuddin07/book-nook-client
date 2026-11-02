@@ -6,9 +6,7 @@ const AllBooksPage = async () => {
   let books: Book[] = [];
 
   try {
-    const res = await fetch("http://localhost:5000/all-books", {
-      cache: "no-store",
-    });
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/all-books`);
 
     if (!res.ok) {
       throw new Error("Failed to fetch books");

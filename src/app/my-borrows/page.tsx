@@ -9,7 +9,7 @@ import { authClient } from "@/lib/auth-client";
 import { toast } from "@/components/ui/toast";
 import { Borrow } from "@/types/book";
 
-const API_URL = "http://localhost:5000";
+const API_URL = `${process.env.NEXT_PUBLIC_API_URL}`;
 
 const formatDate = (value: string | Date) => {
     const date = new Date(value);
@@ -51,9 +51,17 @@ const MyBorrowsPage = () => {
         let cancelled = false;
 
         const loadBorrows = async () => {
+
+            const { data, error } = await authClient.token();
+            const token = data?.token;
+
             try {
                 const res = await fetch(
-                    `${API_URL}/my-borrows?email=${encodeURIComponent(email)}`
+                    `${API_URL}/my-borrows?email=${email}`, {
+                    headers: {
+                        authorization: `Bearer ${token}`,
+                    },
+                },
                 );
                 const data = await res.json();
 
@@ -91,9 +99,15 @@ const MyBorrowsPage = () => {
     const handleReturn = async (borrow: Borrow) => {
         setCancelingId(borrow._id);
 
+        const { data, error } = await authClient.token();
+        const token = data?.token;
+
         try {
             const res = await fetch(`${API_URL}/my-borrows/${borrow._id}`, {
                 method: "DELETE",
+                headers: {
+                    authorization: `Bearer ${token}`,
+                },
             });
             const data = await res.json();
 
@@ -179,7 +193,7 @@ const MyBorrowsPage = () => {
                             </Link>
                         </div>
                     ) : (
-                        <table className="w-full min-w-[760px] text-left text-sm">
+                        <table className="w-full min-w-190 text-left text-sm">
                             <thead className="bg-purple-50 text-[11px] font-semibold uppercase tracking-[0.14em] text-purple-900 dark:bg-brand-soft dark:text-brand-ink">
                                 <tr>
                                     <th className="px-5 py-4 font-semibold">Image</th>

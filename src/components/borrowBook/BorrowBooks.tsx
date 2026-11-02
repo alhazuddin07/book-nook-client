@@ -35,9 +35,17 @@ const BorrowBooks = ({ books }: { books: Book }) => {
         if (!user?.email || !books?._id) return;
 
         const checkBorrowStatus = async () => {
+
+            const { data, error } = await authClient.token();
+            const token = data?.token;
+
             try {
                 const res = await fetch(
-                    `http://localhost:5000/my-borrow?email=${encodeURIComponent(user.email)}&bookId=${books._id}`
+                    `${process.env.NEXT_PUBLIC_API_URL}/my-borrow?email=${(user.email)}&bookId=${books._id}`, {
+                    headers: {
+                        authorization: `Bearer ${token}`,
+                    },
+                },
                 );
 
                 const data = await res.json();
@@ -80,7 +88,7 @@ const BorrowBooks = ({ books }: { books: Book }) => {
             return;
         }
 
-        const data = {
+        const userData = {
             bookId: books._id,
             name: user?.name,
             email: user?.email,
@@ -93,13 +101,17 @@ const BorrowBooks = ({ books }: { books: Book }) => {
             image: books.image,
         };
 
+        const { data, error } = await authClient.token();
+        const token = data?.token;
+
         try {
-            const res = await fetch('http://localhost:5000/my-borrow', {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/my-borrow`, {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    authorization: `Bearer ${token}`,
                 },
-                body: JSON.stringify(data)
+                body: JSON.stringify(userData)
             });
 
             const result = await res.json();
@@ -224,92 +236,92 @@ const BorrowBooks = ({ books }: { books: Book }) => {
                             Already Borrowed
                         </Button>
                     ) : (
-                    <Popover>
-                        <PopoverTrigger
-                            render={
-                                <Button
-                                    type="button"
-                                    disabled={
-                                        remainingCopies <= 0 ||
-                                        checkingBorrow
-                                    }
-                                    className="h-12 flex-1 rounded-xl bg-purple-700 text-base font-semibold text-white shadow-md hover:bg-purple-800 disabled:cursor-not-allowed disabled:bg-gray-400"
-                                />
-                            }
-                        >
-                            <BookMarked className="mr-1 size-5" />
-
-                            {checkingBorrow
-                                ? "Checking..."
-                                : remainingCopies > 0
-                                    ? "Borrow This Book"
-                                    : "Not Available"}
-                        </PopoverTrigger>
-
-                        <PopoverContent
-                            align="start"
-                            className="w-85 rounded-xl border border-purple-100 bg-white p-5 text-slate-900 shadow-xl dark:border-white/10 dark:bg-surface dark:text-ink dark:shadow-black/40"
-                        >
-                            <PopoverHeader className="mb-5">
-                                <PopoverTitle className="text-lg font-semibold text-[#160d32] dark:text-ink">
-                                    Borrow &quot;{books?.title}&quot;
-                                </PopoverTitle>
-
-                                <PopoverDescription className="mt-1 text-sm text-slate-500 dark:text-ink-soft">
-                                    You can keep this book for 7 days.
-                                </PopoverDescription>
-                            </PopoverHeader>
-
-                            <form onSubmit={handleBorrowBooks} className="space-y-4">
-
-                                <div className="space-y-2">
-                                    <label
-                                        htmlFor="userName"
-                                        className="text-sm font-semibold text-slate-700 dark:text-ink-soft"
-                                    >
-                                        User Name
-                                    </label>
-
-                                    <input
-                                        id="userName"
-                                        name="userName"
-                                        readOnly
-                                        placeholder={user?.name}
-                                        required
-                                        className="h-11 w-full rounded-lg border border-purple-100 bg-[#fafaff] px-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-purple-500 focus:ring-1 focus:ring-purple-200 dark:border-white/10 dark:bg-surface-raised dark:text-ink dark:placeholder:text-ink-muted dark:focus:border-brand"
-                                    />
-                                </div>
-
-                                <div className="space-y-2">
-                                    <label
-                                        htmlFor="userEmail"
-                                        className="text-sm font-semibold text-slate-700 dark:text-ink-soft"
-                                    >
-                                        User Email
-                                    </label>
-
-                                    <input
-                                        id="userEmail"
-                                        readOnly
-                                        type="email"
-                                        placeholder={user?.email}
-                                        required
-                                        className="h-11 w-full rounded-lg border border-purple-100 bg-[#fafaff] px-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-purple-500 focus:ring-1 focus:ring-purple-200 dark:border-white/10 dark:bg-surface-raised dark:text-ink dark:placeholder:text-ink-muted dark:focus:border-brand"
-                                    />
-                                </div>
-
-                                <div className="flex justify-end pt-2">
+                        <Popover>
+                            <PopoverTrigger
+                                render={
                                     <Button
-                                        type="submit"
-                                        className="h-10 rounded-lg bg-purple-700 px-5 font-semibold text-white shadow-md shadow-purple-200 transition hover:bg-purple-800"
-                                    >
-                                        Confirm Borrow
-                                    </Button>
-                                </div>
+                                        type="button"
+                                        disabled={
+                                            remainingCopies <= 0 ||
+                                            checkingBorrow
+                                        }
+                                        className="h-12 flex-1 rounded-xl bg-purple-700 text-base font-semibold text-white shadow-md hover:bg-purple-800 disabled:cursor-not-allowed disabled:bg-gray-400"
+                                    />
+                                }
+                            >
+                                <BookMarked className="mr-1 size-5" />
 
-                            </form>
-                        </PopoverContent>
-                    </Popover>
+                                {checkingBorrow
+                                    ? "Checking..."
+                                    : remainingCopies > 0
+                                        ? "Borrow This Book"
+                                        : "Not Available"}
+                            </PopoverTrigger>
+
+                            <PopoverContent
+                                align="start"
+                                className="w-85 rounded-xl border border-purple-100 bg-white p-5 text-slate-900 shadow-xl dark:border-white/10 dark:bg-surface dark:text-ink dark:shadow-black/40"
+                            >
+                                <PopoverHeader className="mb-5">
+                                    <PopoverTitle className="text-lg font-semibold text-[#160d32] dark:text-ink">
+                                        Borrow &quot;{books?.title}&quot;
+                                    </PopoverTitle>
+
+                                    <PopoverDescription className="mt-1 text-sm text-slate-500 dark:text-ink-soft">
+                                        You can keep this book for 7 days.
+                                    </PopoverDescription>
+                                </PopoverHeader>
+
+                                <form onSubmit={handleBorrowBooks} className="space-y-4">
+
+                                    <div className="space-y-2">
+                                        <label
+                                            htmlFor="userName"
+                                            className="text-sm font-semibold text-slate-700 dark:text-ink-soft"
+                                        >
+                                            User Name
+                                        </label>
+
+                                        <input
+                                            id="userName"
+                                            name="userName"
+                                            readOnly
+                                            placeholder={user?.name}
+                                            required
+                                            className="h-11 w-full rounded-lg border border-purple-100 bg-[#fafaff] px-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-purple-500 focus:ring-1 focus:ring-purple-200 dark:border-white/10 dark:bg-surface-raised dark:text-ink dark:placeholder:text-ink-muted dark:focus:border-brand"
+                                        />
+                                    </div>
+
+                                    <div className="space-y-2">
+                                        <label
+                                            htmlFor="userEmail"
+                                            className="text-sm font-semibold text-slate-700 dark:text-ink-soft"
+                                        >
+                                            User Email
+                                        </label>
+
+                                        <input
+                                            id="userEmail"
+                                            readOnly
+                                            type="email"
+                                            placeholder={user?.email}
+                                            required
+                                            className="h-11 w-full rounded-lg border border-purple-100 bg-[#fafaff] px-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-purple-500 focus:ring-1 focus:ring-purple-200 dark:border-white/10 dark:bg-surface-raised dark:text-ink dark:placeholder:text-ink-muted dark:focus:border-brand"
+                                        />
+                                    </div>
+
+                                    <div className="flex justify-end pt-2">
+                                        <Button
+                                            type="submit"
+                                            className="h-10 rounded-lg bg-purple-700 px-5 font-semibold text-white shadow-md shadow-purple-200 transition hover:bg-purple-800"
+                                        >
+                                            Confirm Borrow
+                                        </Button>
+                                    </div>
+
+                                </form>
+                            </PopoverContent>
+                        </Popover>
                     )}
 
                     <Link

@@ -12,7 +12,7 @@ import { toast } from "@/components/ui/toast";
 import { Book } from "@/types/book";
 import { authClient } from "@/lib/auth-client";
 
-const API_URL = "http://localhost:5000";
+const API_URL = `${process.env.NEXT_PUBLIC_API_URL}`;
 
 type EditBookDialogProps = {
     book: Book;

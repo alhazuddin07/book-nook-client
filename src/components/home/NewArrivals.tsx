@@ -25,7 +25,7 @@ const NewArrivals = ({ books }: NewArrivalsProps) => {
                 </div>
 
                 <Link
-                    href="/all-books"
+                    href="/books"
                     className="inline-flex shrink-0 items-center gap-1.5 text-sm font-semibold text-[#4f46e5] transition hover:text-[#3925bd] hover:underline dark:text-brand dark:hover:text-brand-ink"
                 >
                     See All Books

@@ -19,7 +19,6 @@ import { Label } from "@/components/ui/label";
 import { authClient } from "@/lib/auth-client";
 import { redirect, useRouter } from "next/navigation";
 import { toast } from "@/components/ui/toast";
-import { Separator } from "@/components/ui/separator";
 import { FcGoogle } from "react-icons/fc";
 
 
@@ -34,7 +33,7 @@ export default function RegisterPage() {
     const hasUppercase = /[A-Z]/.test(password);
     const hasLowercase = /[a-z]/.test(password);
     const hasOneNumber = /[1-9]/.test(password);
-    const hasMinLength = password.length >= 8;
+    const hasMinLength = password.length >= 6;
 
     const handleLoginFrom = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -244,7 +243,7 @@ export default function RegisterPage() {
                                     )}
 
                                     <span className={hasMinLength ? "text-green-600 dark:text-green-400" : "text-gray-600 dark:text-ink-soft"}>
-                                        At least 8 characters
+                                        At least 6 characters
                                     </span>
                                 </div>
 

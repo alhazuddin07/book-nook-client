@@ -24,7 +24,7 @@ const DetailsPage = async ({ params }: { params: Promise<{ id: string }> }) => {
         headers: await headers()
     });
 
-    const res = await fetch(`http://localhost:5000/book/${id}`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/book/${id}`, {
         headers: {
             authorization: `Bearer ${token?.token}`,
         }
