@@ -313,7 +313,7 @@ const BorrowBooks = ({ books }: { books: Book }) => {
                     )}
 
                     <Link
-                        href="/all-books"
+                        href="/books"
                         className="inline-flex h-12 items-center justify-center rounded-xl border border-purple-200 px-6 text-purple-700 hover:bg-purple-50 dark:border-white/15 dark:text-brand-ink dark:hover:bg-brand-soft"
                     >
                         <BookOpen className="mr-2 size-4" />

@@ -66,7 +66,7 @@ const NewArrivals = ({ books }: NewArrivalsProps) => {
                         </p>
 
                         <Link
-                            href={`/all-books/${book._id}`}
+                            href={`/books/${book._id}`}
                             className="mt-3 flex h-8 items-center justify-center rounded-md bg-[#4f46e5] text-xs font-semibold text-white transition hover:bg-[#4338ca] dark:bg-brand dark:hover:bg-brand-strong"
                         >
                             View Details

@@ -42,7 +42,7 @@ const BookCard = ({ book }: BookCardProps) => {
 
       {/* Details Button */}
       <Link
-        href={`/all-books/${book._id}`}
+        href={`/books/${book._id}`}
         className="mt-4 flex h-9 w-full items-center justify-center rounded-full bg-[#4935d4] text-sm text-white hover:bg-[#3925bd] dark:bg-brand dark:hover:bg-brand-strong"
       >
         View Details

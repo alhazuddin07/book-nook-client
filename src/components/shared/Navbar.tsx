@@ -9,9 +9,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Popover,
   PopoverContent,
-  PopoverDescription,
-  PopoverHeader,
-  PopoverTitle,
   PopoverTrigger,
 } from "@/components/ui/popover";
 
@@ -41,7 +38,7 @@ import { Separator } from "@base-ui/react";
 
 const privetNavLinks = [
   { name: "Home", href: "/", icon: House },
-  { name: "All Books", href: "/all-books", icon: Library },
+  { name: "All Books", href: "/books", icon: Library },
   { name: "Add Book", href: "/add-book", icon: Plus },
   { name: "My Books", href: "/my-books", icon: BookOpen },
   { name: "My Borrows", href: "/my-borrows", icon: BookMarked },
@@ -49,7 +46,7 @@ const privetNavLinks = [
 
 const publicNavLinks = [
   { name: "Home", href: "/", icon: House },
-  { name: "All Books", href: "/all-books", icon: Library },
+  { name: "All Books", href: "/books", icon: Library },
 ];
 
 export default function Navbar() {

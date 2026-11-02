@@ -1,5 +1,7 @@
 import BorrowBooks from "@/components/borrowBook/BorrowBooks";
+import { auth } from "@/lib/auth";
 import { ArrowLeft } from "lucide-react";
+import { headers } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -9,7 +11,15 @@ const DetailsPage = async ({ params }: { params: Promise<{ id: string }> }) => {
 
     const { id } = await params;
 
-    const res = await fetch(`http://localhost:5000/book/${id}`);
+    const token = await auth.api.getToken({
+        headers: await headers()
+    });
+
+    const res = await fetch(`http://localhost:5000/book/${id}`, {
+        headers: {
+            authorization: `Bearer ${token?.token}`,
+        }
+    });
     const books = await res.json();
 
     return (
@@ -18,7 +28,7 @@ const DetailsPage = async ({ params }: { params: Promise<{ id: string }> }) => {
 
                 {/* Back Button */}
                 <Link
-                    href="/all-books"
+                    href="/books"
                     className="mb-8 inline-flex items-center gap-2 text-sm font-medium text-gray-600 transition hover:text-purple-700 dark:text-ink-soft dark:hover:text-brand"
                 >
                     <ArrowLeft className="size-4" />
