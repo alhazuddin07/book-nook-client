@@ -4,12 +4,21 @@ import { ArrowLeft } from "lucide-react";
 import { headers } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 
 
 const DetailsPage = async ({ params }: { params: Promise<{ id: string }> }) => {
 
     const { id } = await params;
+
+    const session = await auth.api.getSession({
+        headers: await headers()
+    });
+
+    if(!session){
+        redirect('/login')
+    }
 
     const token = await auth.api.getToken({
         headers: await headers()
@@ -20,6 +29,7 @@ const DetailsPage = async ({ params }: { params: Promise<{ id: string }> }) => {
             authorization: `Bearer ${token?.token}`,
         }
     });
+
     const books = await res.json();
 
     return (

@@ -42,6 +42,30 @@ const formatAddedDate = (id: string) => {
     });
 };
 
+const EditBookButton = ({book, onEdit,}: {book: Book; onEdit: (book: Book) => void;}) => {
+    return (
+        <button
+            type="button"
+            onClick={() => onEdit(book)}
+            className="rounded-md bg-[#3f51e0] px-3 py-1.5 text-xs font-semibold text-white shadow-sm transition hover:bg-[#3042c8] dark:bg-brand dark:hover:bg-brand-strong"
+        >
+            Edit
+        </button>
+    );
+};
+
+const DeleteBookButton = ({book, onDelete,}: {book: Book; onDelete: (book: Book) => void;}) => {
+    return (
+        <button
+            type="button"
+            onClick={() => onDelete(book)}
+            className="rounded-md bg-purple-700 px-3 py-1.5 text-xs font-semibold text-white shadow-sm transition hover:bg-purple-600"
+        >
+            Delete
+        </button>
+    );
+};
+
 const MyBooksPage = () => {
     const { data: session, isPending } = authClient.useSession();
     const email = session?.user?.email;
@@ -247,21 +271,15 @@ const MyBooksPage = () => {
 
                                             <td className="px-6 py-3">
                                                 <div className="flex items-center gap-2">
-                                                    <button
-                                                        type="button"
-                                                        onClick={() => setBookToEdit(book)}
-                                                        className="rounded-md bg-[#3f51e0] px-3 py-1.5 text-xs font-semibold text-white shadow-sm transition hover:bg-[#3042c8] dark:bg-brand dark:hover:bg-brand-strong"
-                                                    >
-                                                        Edit
-                                                    </button>
+                                                    <EditBookButton
+                                                        book={book}
+                                                        onEdit={setBookToEdit}
+                                                    />
 
-                                                    <button
-                                                        type="button"
-                                                        onClick={() => setBookToDelete(book)}
-                                                        className="rounded-md bg-purple-700 px-3 py-1.5 text-xs font-semibold text-white shadow-sm transition hover:bg-purple-600"
-                                                    >
-                                                        Delete
-                                                    </button>
+                                                    <DeleteBookButton
+                                                        book={book}
+                                                        onDelete={setBookToDelete}
+                                                    />
                                                 </div>
                                             </td>
                                         </tr>

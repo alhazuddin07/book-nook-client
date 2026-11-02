@@ -10,6 +10,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "@/components/ui/toast";
 import { Book } from "@/types/book";
+import { authClient } from "@/lib/auth-client";
 
 const API_URL = "http://localhost:5000";
 
@@ -52,13 +53,17 @@ const EditBookDialog = ({ book, email, onClose, onSaved }: EditBookDialogProps) 
 
         setIsSaving(true);
 
+        const { data, error } = await authClient.token();
+        const token = data?.token;
+
         try {
             const res = await fetch(
-                `${API_URL}/book/${book._id}?email=${encodeURIComponent(email)}`,
+                `${API_URL}/book/${book._id}?email=${(email)}`,
                 {
                     method: "PUT",
                     headers: {
                         "Content-Type": "application/json",
+                        authorization: `Bearer ${token}`,
                     },
                     body: JSON.stringify({
                         title: form.title,

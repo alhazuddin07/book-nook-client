@@ -2,7 +2,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
@@ -50,6 +50,9 @@ const publicNavLinks = [
 ];
 
 export default function Navbar() {
+
+  const router = useRouter();
+
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
@@ -64,7 +67,13 @@ export default function Navbar() {
   };
 
   const handleSignOut = async()=> {
-    await authClient.signOut();
+    await authClient.signOut({
+      fetchOptions: {
+        onSuccess: ()=> {
+          router.push('/login');
+        },
+      },
+    });
   };
 
 

@@ -117,11 +117,15 @@ const AddBookPage = () => {
 
         setIsSubmitting(true);
 
+        const {data, error} = await authClient.token();
+        const token = data?.token;
+
         try {
             const res = await fetch("http://localhost:5000/add-book", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
+                    authorization: `Bearer ${token}`
                 },
                 body: JSON.stringify(bookData),
             });
@@ -145,7 +149,7 @@ const AddBookPage = () => {
 
             setImagePreview("");
             setCategory("");
-            router.push("/all-books");
+            router.push("/books");
         } catch (error) {
             console.error("Add book error:", error);
 
