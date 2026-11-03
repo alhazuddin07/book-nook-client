@@ -164,15 +164,15 @@ const AddBookPage = () => {
     };
 
     return (
-        <section className="min-h-screen bg-[#f5f4fb] px-4 py-12 sm:px-6 dark:bg-surface-muted">
+        <section className="min-h-screen bg-[#f5f4fb] px-4 py-8 sm:px-6 sm:py-12 lg:px-8 dark:bg-surface-muted">
             <div className="mx-auto max-w-3xl">
-                <div className="mb-8 text-center">
+                <div className="mb-6 text-center sm:mb-8">
                     <div className="mb-4 flex items-center justify-center gap-3">
                         <span className="flex size-10 items-center justify-center rounded-full bg-[#2e2a8f] text-white shadow-md shadow-purple-200">
                             <Plus className="size-6" />
                         </span>
 
-                        <h1 className="text-3xl font-bold text-[#1f1b4b] dark:text-ink">
+                        <h1 className="text-2xl font-bold text-[#1f1b4b] sm:text-3xl dark:text-ink">
                             Add a New Book
                         </h1>
                     </div>
@@ -182,7 +182,7 @@ const AddBookPage = () => {
                     </p>
                 </div>
 
-                <div className="rounded-3xl border border-purple-100 bg-white p-6 shadow-sm sm:p-8 dark:border-white/10 dark:bg-surface dark:shadow-none">
+                <div className="rounded-2xl border border-purple-100 bg-white p-4 shadow-sm sm:rounded-3xl sm:p-8 dark:border-white/10 dark:bg-surface dark:shadow-none">
                     <form onSubmit={handleSubmit}>
                         <div className="grid gap-6 md:grid-cols-[260px_1fr]">
                             {/* Left column */}
@@ -207,7 +207,7 @@ const AddBookPage = () => {
                                         setIsDragging(false);
                                         handleFile(e.dataTransfer.files?.[0]);
                                     }}
-                                    className={`relative flex min-h-72.5 cursor-pointer flex-col items-center justify-center overflow-hidden rounded-2xl border-2 border-dashed px-5 py-8 text-center transition ${
+                                    className={`relative flex min-h-60 cursor-pointer flex-col items-center justify-center overflow-hidden rounded-2xl border-2 border-dashed px-5 py-8 text-center transition sm:min-h-72.5 ${
                                         isDragging
                                             ? "border-[#4a3ad1] bg-[#eeecff] dark:border-brand dark:bg-brand-soft"
                                             : "border-[#d5d1f5] bg-[#f7f6ff] hover:border-[#b8b2ec] dark:border-white/15 dark:bg-surface-raised dark:hover:border-brand/50"

@@ -115,7 +115,7 @@ const HomeInfoCards = () => {
     return (
         <section className="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
             <div className="grid gap-4 md:grid-cols-2">
-                <article className="flex items-center justify-between gap-4 overflow-hidden rounded-2xl border border-[#ebe7fb] bg-[#f4f1ff] px-5 py-6 shadow-[0_2px_12px_rgba(31,27,75,0.04)] sm:gap-5 sm:px-8 dark:border-white/10 dark:bg-[#1b1430] dark:shadow-none">
+                <article className="flex items-center justify-between gap-3 overflow-hidden rounded-2xl border border-[#ebe7fb] bg-[#f4f1ff] px-4 py-5 shadow-[0_2px_12px_rgba(31,27,75,0.04)] sm:gap-5 sm:px-8 sm:py-6 dark:border-white/10 dark:bg-[#1b1430] dark:shadow-none">
                     <div className="min-w-0">
                         <h2 className="text-lg font-bold tracking-tight text-[#2d2652] sm:text-xl dark:text-brand-ink">
                             How Borrowing Works
@@ -128,10 +128,10 @@ const HomeInfoCards = () => {
                         </ol>
                     </div>
 
-                    <BorrowingIllustration className="h-24 w-auto shrink-0 sm:h-36 md:h-40" />
+                    <BorrowingIllustration className="h-20 w-auto shrink-0 sm:h-36 md:h-40" />
                 </article>
 
-                <article className="flex items-center justify-between gap-4 overflow-hidden rounded-2xl border border-[#f5ead9] bg-[#fff9f1] px-5 py-6 shadow-[0_2px_12px_rgba(31,27,75,0.04)] sm:gap-5 sm:px-8 dark:border-white/10 dark:bg-[#1d1726] dark:shadow-none">
+                <article className="flex items-center justify-between gap-3 overflow-hidden rounded-2xl border border-[#f5ead9] bg-[#fff9f1] px-4 py-5 shadow-[0_2px_12px_rgba(31,27,75,0.04)] sm:gap-5 sm:px-8 sm:py-6 dark:border-white/10 dark:bg-[#1d1726] dark:shadow-none">
                     <div className="min-w-0">
                         <h2 className="text-lg font-bold tracking-tight text-[#2d2652] sm:text-xl dark:text-brand-ink">
                             Top Categories
@@ -142,7 +142,7 @@ const HomeInfoCards = () => {
                         </p>
                     </div>
 
-                    <CategoriesIllustration className="h-20 w-auto shrink-0 sm:h-32 md:h-36" />
+                    <CategoriesIllustration className="h-16 w-auto shrink-0 sm:h-32 md:h-36" />
                 </article>
             </div>
         </section>

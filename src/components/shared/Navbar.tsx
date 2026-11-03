@@ -81,19 +81,19 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-hairline bg-surface/95 backdrop-blur-md">
-      <div className="mx-auto flex h-18 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-3 px-4 sm:h-18 sm:px-6 lg:px-8">
 
         {/* Logo */}
-        <Link href="/" className="flex shrink-0 items-center gap-2">
+        <Link href="/" className="flex min-w-0 shrink-0 items-center gap-2">
           <div className="flex size-10 items-center justify-center rounded-xl bg-purple-700 text-white shadow-md shadow-purple-200 dark:bg-brand dark:shadow-none">
             <BookOpen className="size-6" />
           </div>
 
-          <div>
-            <h1 className="text-xl font-extrabold tracking-tight text-purple-950 dark:text-brand-ink">
+          <div className="min-w-0">
+            <h1 className="truncate text-lg font-extrabold tracking-tight text-purple-950 sm:text-xl dark:text-brand-ink">
               Book<span className="text-purple-600 dark:text-brand">Nook</span>
             </h1>
-            <p className="text-[10px] font-medium tracking-wider text-gray-500 dark:text-ink-muted">
+            <p className="hidden text-[10px] font-medium tracking-wider text-gray-500 sm:block dark:text-ink-muted">
               YOUR LITTLE READING SPACE
             </p>
           </div>
@@ -116,7 +116,7 @@ export default function Navbar() {
         </nav>
 
         {/* Right side actions */}
-        <div className="flex items-center gap-2 sm:gap-3">
+        <div className="flex shrink-0 items-center gap-1.5 sm:gap-3">
           <ThemeToggle />
 
           {
@@ -227,7 +227,7 @@ export default function Navbar() {
                 <Menu className="size-5" />
               </SheetTrigger>
 
-              <SheetContent side="right" className="w-75 sm:w-87.5">
+              <SheetContent side="right" className="w-72 max-w-[85vw] sm:w-87.5">
                 <SheetHeader>
                   <SheetTitle className="flex items-center gap-2 text-purple-900 dark:text-brand-ink">
                     <BookOpen className="size-6 text-purple-700 dark:text-brand" />

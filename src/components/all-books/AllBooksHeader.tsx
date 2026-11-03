@@ -6,7 +6,7 @@ const AllBooksHeader = () => {
       <div className="mb-2 flex items-center justify-center gap-2">
         <BookOpen className="size-7 text-[#4935d4] dark:text-brand" />
 
-        <h1 className="text-3xl font-bold text-slate-900 dark:text-ink">
+        <h1 className="text-2xl font-bold text-slate-900 sm:text-3xl dark:text-ink">
           All Books
         </h1>
       </div>

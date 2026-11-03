@@ -33,13 +33,13 @@ const DetailsPage = async ({ params }: { params: Promise<{ id: string }> }) => {
     const books = await res.json();
 
     return (
-        <section className="min-h-screen bg-[#f8f7ff] px-4 py-12 dark:bg-surface-muted">
+        <section className="min-h-screen bg-[#f8f7ff] px-4 py-8 sm:px-6 sm:py-12 lg:px-8 dark:bg-surface-muted">
             <div className="mx-auto max-w-6xl">
 
                 {/* Back Button */}
                 <Link
                     href="/books"
-                    className="mb-8 inline-flex items-center gap-2 text-sm font-medium text-gray-600 transition hover:text-purple-700 dark:text-ink-soft dark:hover:text-brand"
+                    className="mb-6 inline-flex items-center gap-2 text-sm font-medium text-gray-600 transition hover:text-purple-700 sm:mb-8 dark:text-ink-soft dark:hover:text-brand"
                 >
                     <ArrowLeft className="size-4" />
                     Back to all books
@@ -49,8 +49,8 @@ const DetailsPage = async ({ params }: { params: Promise<{ id: string }> }) => {
                 <div className="grid overflow-hidden rounded-3xl border border-purple-100 bg-white shadow-lg md:grid-cols-2 dark:border-white/10 dark:bg-surface dark:shadow-black/30">
 
                     {/* Book Image */}
-                    <div className="flex items-center justify-center bg-linear-to-br from-[#ede9fe] to-[#f5f3ff] p-8 md:p-12 dark:from-[#1a1330] dark:to-[#120d22]">
-                        <div className="relative flex h-100 w-full max-w-[320px] items-center justify-center rounded-2xl bg-white p-5 shadow-xl dark:bg-surface-raised dark:shadow-black/40">
+                    <div className="flex items-center justify-center bg-linear-to-br from-[#ede9fe] to-[#f5f3ff] p-6 sm:p-8 md:p-12 dark:from-[#1a1330] dark:to-[#120d22]">
+                        <div className="relative flex h-72 w-full max-w-[320px] items-center justify-center rounded-2xl bg-white p-5 shadow-xl sm:h-100 dark:bg-surface-raised dark:shadow-black/40">
                             <Image
                                 src={books.image}
                                 width={400}

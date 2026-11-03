@@ -183,13 +183,13 @@ const MyBooksPage = () => {
     const loading = isPending || (!!email && !loaded);
 
     return (
-        <section className="min-h-screen bg-[#f7f7ff] px-4 py-10 sm:px-6 dark:bg-surface-muted">
+        <section className="min-h-screen bg-[#f7f7ff] px-4 py-8 sm:px-6 sm:py-10 lg:px-8 dark:bg-surface-muted">
             <div className="mx-auto max-w-4xl">
-                <div className="mb-8 text-center">
+                <div className="mb-6 text-center sm:mb-8">
                     <div className="mb-2 flex items-center justify-center gap-2">
                         <BookOpen className="size-8 text-[#4935d4] dark:text-brand" />
 
-                        <h1 className="text-3xl font-bold tracking-tight text-slate-900 dark:text-ink">
+                        <h1 className="text-2xl font-bold tracking-tight text-slate-900 sm:text-3xl dark:text-ink">
                             My Books
                         </h1>
                     </div>
@@ -200,13 +200,13 @@ const MyBooksPage = () => {
                 </div>
 
                 {loading ? (
-                    <div className="rounded-xl border border-dashed border-purple-200 bg-white py-16 text-center dark:border-white/15 dark:bg-surface">
+                    <div className="rounded-xl border border-dashed border-purple-200 bg-white py-12 text-center sm:py-16 dark:border-white/15 dark:bg-surface">
                         <p className="text-sm text-slate-500 dark:text-ink-soft">
                             Loading your books...
                         </p>
                     </div>
                 ) : !email ? (
-                    <div className="rounded-xl border border-dashed border-purple-200 bg-white py-16 text-center dark:border-white/15 dark:bg-surface">
+                    <div className="rounded-xl border border-dashed border-purple-200 bg-white py-12 text-center sm:py-16 dark:border-white/15 dark:bg-surface">
                         <p className="text-sm text-slate-500 dark:text-ink-soft">
                             Please log in to see the books you have added.
                         </p>
@@ -219,7 +219,7 @@ const MyBooksPage = () => {
                         </Link>
                     </div>
                 ) : books.length === 0 ? (
-                    <div className="rounded-xl border border-dashed border-purple-200 bg-white py-16 text-center dark:border-white/15 dark:bg-surface">
+                    <div className="rounded-xl border border-dashed border-purple-200 bg-white py-12 text-center sm:py-16 dark:border-white/15 dark:bg-surface">
                         <h3 className="text-lg font-semibold text-slate-700 dark:text-ink">
                             No books added yet
                         </h3>
@@ -239,14 +239,14 @@ const MyBooksPage = () => {
                 ) : (
                     <div className="overflow-hidden rounded-2xl border border-[#ecebf6] bg-white shadow-[0_2px_14px_rgba(31,27,75,0.05)] dark:border-white/10 dark:bg-surface dark:shadow-none">
                         <div className="overflow-x-auto">
-                            <table className="w-full min-w-175 text-left text-sm">
+                            <table className="w-full min-w-full text-left text-sm md:min-w-175">
                                 <thead className="bg-[#fbfaff] dark:bg-surface-raised">
                                     <tr className="text-[13px] text-[#1f1b4b] dark:text-ink">
-                                        <th className="px-6 py-3 font-bold">Image</th>
-                                        <th className="px-6 py-3 font-bold">Title</th>
-                                        <th className="px-6 py-3 font-bold">Category</th>
-                                        <th className="px-6 py-3 font-bold">Date Added</th>
-                                        <th className="px-6 py-3 font-bold">Actions</th>
+                                        <th className="hidden px-3 py-3 font-bold sm:table-cell sm:px-6">Image</th>
+                                        <th className="px-3 py-3 font-bold sm:px-6">Title</th>
+                                        <th className="hidden px-3 py-3 font-bold md:table-cell md:px-6">Category</th>
+                                        <th className="hidden px-3 py-3 font-bold lg:table-cell lg:px-6">Date Added</th>
+                                        <th className="px-3 py-3 font-bold sm:px-6">Actions</th>
                                     </tr>
                                 </thead>
 
@@ -256,7 +256,7 @@ const MyBooksPage = () => {
                                             key={book._id}
                                             className="border-t border-[#f0eef8] transition hover:bg-[#faf9ff] dark:border-white/8 dark:hover:bg-surface-hover"
                                         >
-                                            <td className="px-6 py-3">
+                                            <td className="hidden px-3 py-3 sm:table-cell sm:px-6">
                                                 <div className="relative h-14 w-10 overflow-hidden rounded-md bg-purple-50 dark:bg-surface-raised">
                                                     {book.image ? (
                                                         <Image
@@ -272,21 +272,23 @@ const MyBooksPage = () => {
                                                 </div> 
                                             </td>
 
-                                            <td className="max-w-60 truncate px-6 py-3 font-semibold text-slate-900 dark:text-ink">
-                                                {book.title}
+                                            <td className="px-3 py-3 font-semibold text-slate-900 sm:px-6 dark:text-ink">
+                                                <div className="max-w-32 truncate sm:max-w-60">
+                                                    {book.title}
+                                                </div>
                                             </td>
 
-                                            <td className="px-6 py-3">
+                                            <td className="hidden px-3 py-3 md:table-cell md:px-6">
                                                 <span className="inline-flex min-w-27.5 justify-center rounded-lg border border-[#e7e5f3] bg-white px-4 py-1.5 text-sm capitalize text-slate-700 dark:border-white/10 dark:bg-surface-raised dark:text-ink-soft shadow-[0_1px_2px_rgba(31,27,75,0.04)]">
                                                     {book.category}
                                                 </span>
                                             </td>
 
-                                            <td className="px-6 py-3 text-slate-600 dark:text-ink-soft">
+                                            <td className="hidden whitespace-nowrap px-3 py-3 text-slate-600 lg:table-cell lg:px-6 dark:text-ink-soft">
                                                 {formatAddedDate(book._id)}
                                             </td>
 
-                                            <td className="px-6 py-3">
+                                            <td className="whitespace-nowrap px-3 py-3 sm:px-6">
                                                 <div className="flex items-center gap-2">
                                                     <EditBookButton
                                                         book={book}

@@ -10,19 +10,45 @@ import BooksPagination from "./BooksPagination";
 
 type AllBooksContentProps = {
   books: Book[];
+  initialCategory?: string;
 };
 
 const PAGE_SIZE = 6;
 
-const AllBooksContent = ({ books }: AllBooksContentProps) => {
+const AllBooksContent = ({
+  books,
+  initialCategory = "all",
+}: AllBooksContentProps) => {
+  const startingCategory =
+    initialCategory.trim() && initialCategory.trim().toLowerCase() !== "all"
+      ? initialCategory.trim()
+      : "all";
+
   const [search, setSearch] = useState("");
-  const [category, setCategory] = useState("all");
+  const [category, setCategory] = useState(startingCategory);
   const [currentPage, setCurrentPage] = useState(1);
 
-  // Get unique categories
+  // Get unique categories, keeping the one the visitor arrived with selectable
   const categories = useMemo(() => {
-    return [...new Set(books.map((book) => book.category))].sort();
-  }, [books]);
+    const unique = new Map<string, string>();
+
+    books.forEach((book) => {
+      const value = book.category?.trim();
+
+      if (value) {
+        unique.set(value.toLowerCase(), value);
+      }
+    });
+
+    if (
+      startingCategory !== "all" &&
+      !unique.has(startingCategory.toLowerCase())
+    ) {
+      unique.set(startingCategory.toLowerCase(), startingCategory);
+    }
+
+    return [...unique.values()].sort((a, b) => a.localeCompare(b));
+  }, [books, startingCategory]);
 
   // Search and category filtering
   const filteredBooks = useMemo(() => {
@@ -32,7 +58,8 @@ const AllBooksContent = ({ books }: AllBooksContentProps) => {
         book.author.toLowerCase().includes(search.toLowerCase());
 
       const categoryMatch =
-        category === "all" || book.category === category;
+        category === "all" ||
+        (book.category ?? "").toLowerCase() === category.toLowerCase();
 
       return searchMatch && categoryMatch;
     });
@@ -57,7 +84,7 @@ const AllBooksContent = ({ books }: AllBooksContentProps) => {
   };
 
   return (
-    <section className="min-h-screen bg-[#f7f7ff] px-4 py-10 dark:bg-surface-muted">
+    <section className="min-h-screen bg-[#f7f7ff] px-4 py-8 sm:px-6 sm:py-10 lg:px-8 dark:bg-surface-muted">
       <div className="mx-auto max-w-6xl">
         <AllBooksHeader />
 

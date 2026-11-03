@@ -145,13 +145,13 @@ const MyBorrowsPage = () => {
     const loading = isPending || (!!email && !loaded);
 
     return (
-        <section className="min-h-screen bg-[#f7f7ff] px-4 py-10 sm:px-6 dark:bg-surface-muted">
+        <section className="min-h-screen bg-[#f7f7ff] px-4 py-8 sm:px-6 sm:py-10 lg:px-8 dark:bg-surface-muted">
             <div className="mx-auto max-w-6xl">
-                <div className="mb-8 text-center">
+                <div className="mb-6 text-center sm:mb-8">
                     <div className="mb-2 flex items-center justify-center gap-2">
                         <BookOpen className="size-7 text-[#4935d4] dark:text-brand" />
 
-                        <h1 className="text-3xl font-bold text-slate-900 dark:text-ink">
+                        <h1 className="text-2xl font-bold text-slate-900 sm:text-3xl dark:text-ink">
                             My Borrows
                         </h1>
                     </div>
@@ -163,11 +163,11 @@ const MyBorrowsPage = () => {
 
                 <div className="overflow-x-auto rounded-2xl border border-purple-100 bg-white shadow-sm dark:border-white/10 dark:bg-surface dark:shadow-none">
                     {loading ? (
-                        <p className="px-6 py-16 text-center text-sm text-slate-500 dark:text-ink-soft">
+                        <p className="px-4 py-12 text-center text-sm text-slate-500 sm:px-6 sm:py-16 dark:text-ink-soft">
                             Loading your borrowed books...
                         </p>
                     ) : !email ? (
-                        <div className="px-6 py-16 text-center">
+                        <div className="px-4 py-12 text-center sm:px-6 sm:py-16">
                             <p className="text-sm text-slate-500 dark:text-ink-soft">
                                 Please log in to see your borrowed books.
                             </p>
@@ -180,7 +180,7 @@ const MyBorrowsPage = () => {
                             </Link>
                         </div>
                     ) : borrows.length === 0 ? (
-                        <div className="px-6 py-16 text-center">
+                        <div className="px-4 py-12 text-center sm:px-6 sm:py-16">
                             <p className="text-sm text-slate-500 dark:text-ink-soft">
                                 You have not borrowed any books yet.
                             </p>
@@ -193,14 +193,14 @@ const MyBorrowsPage = () => {
                             </Link>
                         </div>
                     ) : (
-                        <table className="w-full min-w-190 text-left text-sm">
+                        <table className="w-full min-w-full text-left text-sm lg:min-w-190">
                             <thead className="bg-purple-50 text-[11px] font-semibold uppercase tracking-[0.14em] text-purple-900 dark:bg-brand-soft dark:text-brand-ink">
                                 <tr>
-                                    <th className="px-5 py-4 font-semibold">Image</th>
-                                    <th className="px-5 py-4 font-semibold">Title</th>
-                                    <th className="px-5 py-4 font-semibold">Borrow Date</th>
-                                    <th className="px-5 py-4 font-semibold">Return Date</th>
-                                    <th className="px-5 py-4 text-right font-semibold">Action</th>
+                                    <th className="hidden px-3 py-4 font-semibold sm:table-cell sm:px-5">Image</th>
+                                    <th className="px-3 py-4 font-semibold sm:px-5">Title</th>
+                                    <th className="hidden px-3 py-4 font-semibold sm:table-cell sm:px-5">Borrow Date</th>
+                                    <th className="hidden px-3 py-4 font-semibold md:table-cell md:px-5">Return Date</th>
+                                    <th className="px-3 py-4 text-right font-semibold sm:px-5">Action</th>
                                 </tr>
                             </thead>
 
@@ -210,7 +210,7 @@ const MyBorrowsPage = () => {
                                         key={borrow._id}
                                         className="border-t border-purple-50 transition hover:bg-[#faf9ff] dark:border-white/8 dark:hover:bg-surface-hover"
                                     >
-                                        <td className="px-5 py-4">
+                                        <td className="hidden px-3 py-4 sm:table-cell sm:px-5">
                                             <div className="relative h-14 w-10 overflow-hidden rounded bg-purple-50 dark:bg-surface-raised">
                                                 {borrow.image ? (
                                                     <Image
@@ -224,19 +224,21 @@ const MyBorrowsPage = () => {
                                             </div>
                                         </td>
 
-                                        <td className="px-5 py-4 font-semibold text-slate-900 dark:text-ink">
-                                            {borrow.title}
+                                        <td className="px-3 py-4 font-semibold text-slate-900 sm:px-5 dark:text-ink">
+                                            <div className="max-w-32 truncate sm:max-w-none">
+                                                {borrow.title}
+                                            </div>
                                         </td>
 
-                                        <td className="px-5 py-4 text-slate-500 dark:text-ink-soft">
+                                        <td className="hidden whitespace-nowrap px-3 py-4 text-slate-500 sm:table-cell sm:px-5 dark:text-ink-soft">
                                             {formatDate(borrow.bookinDate)}
                                         </td>
 
-                                        <td className="px-5 py-4 text-slate-500 dark:text-ink-soft">
+                                        <td className="hidden whitespace-nowrap px-3 py-4 text-slate-500 md:table-cell md:px-5 dark:text-ink-soft">
                                             {getReturnDate(borrow.bookinDate)}
                                         </td>
 
-                                        <td className="px-5 py-4 text-right">
+                                        <td className="whitespace-nowrap px-3 py-4 text-right sm:px-5">
                                             <button
                                                 type="button"
                                                 onClick={() => handleReturn(borrow)}

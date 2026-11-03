@@ -16,16 +16,16 @@ const ProfilePage = async () => {
     const user = session?.user;
 
     return (
-        <div className="min-h-screen bg-gray-50 px-4 py-10 transition-colors duration-300 dark:bg-gray-950">
+        <div className="min-h-screen bg-gray-50 px-4 py-8 transition-colors duration-300 sm:px-6 sm:py-10 lg:px-8 dark:bg-gray-950">
 
-            <div className="mx-auto max-w-5xl rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition-colors duration-300 dark:border-gray-800 dark:bg-surface/95 md:p-10">
+            <div className="mx-auto max-w-5xl rounded-2xl border border-gray-100 bg-white p-5 shadow-sm transition-colors duration-300 sm:p-6 dark:border-gray-800 dark:bg-surface/95 md:p-10">
 
-                <div className="grid grid-cols-1 gap-8 md:grid-cols-[180px_1fr]">
+                <div className="grid grid-cols-1 gap-6 md:grid-cols-[180px_1fr] md:gap-8">
 
                     {/* Profile Photo */}
                     <div className="flex flex-col items-center gap-4 border-b border-gray-100 pb-6 dark:border-gray-800 md:border-b-0 md:border-r md:pr-8">
 
-                        <div className="relative h-40 w-40 overflow-hidden rounded-full border-2 border-gray-200 dark:border-gray-700">
+                        <div className="relative h-32 w-32 overflow-hidden rounded-full border-2 border-gray-200 sm:h-40 sm:w-40 dark:border-gray-700">
                             <Image
                                 src={user?.image ?? '/placeholder-avatar.png'}
                                 alt="Profile Photo"

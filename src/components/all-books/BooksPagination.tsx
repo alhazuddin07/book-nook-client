@@ -14,7 +14,7 @@ const BooksPagination = ({
   if (totalPages <= 1) return null;
 
   return (
-    <div className="my-10 flex items-center justify-center gap-2">
+    <div className="my-8 flex max-w-full flex-wrap items-center justify-center gap-2 px-2 sm:my-10">
       <Button
         variant="outline"
         size="sm"

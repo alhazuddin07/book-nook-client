@@ -155,7 +155,7 @@ const BorrowBooks = ({ books }: { books: Book }) => {
 
     return (
         <div>
-            <div className="flex flex-col justify-center p-6 md:p-10">
+            <div className="flex flex-col justify-center p-5 sm:p-6 md:p-10">
 
                 {/* Category */}
                 <div className="mb-5">
@@ -165,7 +165,7 @@ const BorrowBooks = ({ books }: { books: Book }) => {
                 </div>
 
                 {/* Title */}
-                <h1 className="text-3xl font-extrabold leading-tight text-[#160d32] md:text-5xl dark:text-ink">
+                <h1 className="text-2xl font-extrabold leading-tight wrap-break-word text-[#160d32] sm:text-3xl md:text-5xl dark:text-ink">
                     {books.title}
                 </h1>
 
@@ -189,8 +189,8 @@ const BorrowBooks = ({ books }: { books: Book }) => {
                 </div>
 
                 {/* Book Information Box */}
-                <div className="rounded-2xl bg-[#160d32] p-6 dark:border dark:border-white/10 dark:bg-[#1a1329]">
-                    <div className="grid grid-cols-2 gap-5">
+                <div className="rounded-2xl bg-[#160d32] p-5 sm:p-6 dark:border dark:border-white/10 dark:bg-[#1a1329]">
+                    <div className="grid grid-cols-1 gap-4 min-[380px]:grid-cols-2 sm:gap-5">
 
                         {/* Added By */}
                         <div>
@@ -203,9 +203,9 @@ const BorrowBooks = ({ books }: { books: Book }) => {
                                 {user?.name}
                             </h3>
 
-                            <div className="mt-2 flex items-center gap-2 text-xs text-gray-300">
-                                <Mail className="size-3" />
-                                <span>{user?.email}</span>
+                            <div className="mt-2 flex min-w-0 items-center gap-2 text-xs text-gray-300">
+                                <Mail className="size-3 shrink-0" />
+                                <span className="truncate">{user?.email}</span>
                             </div>
                         </div>
 
@@ -224,7 +224,7 @@ const BorrowBooks = ({ books }: { books: Book }) => {
                 </div>
 
                 {/* Action Buttons */}
-                <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                <div className="mt-6 flex flex-col gap-3 sm:mt-8 sm:flex-row">
 
                     {alreadyBorrowed ? (
                         <Button
@@ -260,7 +260,7 @@ const BorrowBooks = ({ books }: { books: Book }) => {
 
                             <PopoverContent
                                 align="start"
-                                className="w-85 rounded-xl border border-purple-100 bg-white p-5 text-slate-900 shadow-xl dark:border-white/10 dark:bg-surface dark:text-ink dark:shadow-black/40"
+                                className="w-[calc(100vw-2rem)] max-w-85 rounded-xl border border-purple-100 bg-white p-4 text-slate-900 shadow-xl sm:p-5 dark:border-white/10 dark:bg-surface dark:text-ink dark:shadow-black/40"
                             >
                                 <PopoverHeader className="mb-5">
                                     <PopoverTitle className="text-lg font-semibold text-[#160d32] dark:text-ink">
@@ -313,7 +313,7 @@ const BorrowBooks = ({ books }: { books: Book }) => {
                                     <div className="flex justify-end pt-2">
                                         <Button
                                             type="submit"
-                                            className="h-10 rounded-lg bg-purple-700 px-5 font-semibold text-white shadow-md shadow-purple-200 transition hover:bg-purple-800"
+                                            className="h-10 w-full rounded-lg bg-purple-700 px-5 font-semibold text-white shadow-md shadow-purple-200 transition hover:bg-purple-800 sm:w-auto"
                                         >
                                             Confirm Borrow
                                         </Button>

@@ -1,3 +1,4 @@
+import CategoryShowcase from "@/components/home/CategoryShowcase";
 import HeroBanner from "@/components/home/HeroBanner";
 import HomeInfoCards from "@/components/home/HomeInfoCards";
 import NewArrivals from "@/components/home/NewArrivals";
@@ -30,6 +31,7 @@ export default async function Home() {
     <div>
       <HeroBanner />
       <NewArrivals books={books} />
+      <CategoryShowcase />
       <HomeInfoCards />
     </div>
   );

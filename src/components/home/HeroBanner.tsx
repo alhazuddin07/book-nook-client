@@ -57,7 +57,7 @@ export default function HeroBanner() {
   );
 
   return (
-    <section className="mx-auto max-w-7xl px-4 pt-6 sm:px-6 lg:px-8">
+    <section className="mx-auto max-w-7xl px-4 pt-4 sm:px-6 sm:pt-6 lg:px-8">
       <Carousel
         opts={{
           loop: true,
@@ -70,7 +70,7 @@ export default function HeroBanner() {
           {slides.map((slide, index) => (
             <CarouselItem key={index} className="basis-full pl-0">
               <div
-                className="relative flex min-h-105 items-center overflow-hidden rounded-2xl bg-cover bg-center sm:min-h-120 lg:min-h-130"
+                className="relative flex min-h-95 items-center overflow-hidden rounded-2xl bg-cover bg-center sm:min-h-120 lg:min-h-130"
                 style={{
                   backgroundImage: `url(${slide.image})`,
                 }}
@@ -79,23 +79,23 @@ export default function HeroBanner() {
                 <div className="absolute inset-0 bg-linear-to-r from-[#160d32]/95 via-[#24124a]/75 to-[#160d32]/20" />
 
                 {/* Content */}
-                <div className="relative z-10 max-w-2xl px-7 py-16 sm:px-12 lg:px-16">
+                <div className="relative z-10 max-w-2xl px-5 py-12 sm:px-12 sm:py-16 lg:px-16">
                   <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-purple-200/30 bg-white/10 px-4 py-2 text-xs font-bold tracking-[2px] text-purple-100 backdrop-blur-sm">
                     <Sparkles className="size-4 text-purple-300" />
                     {slide.subtitle}
                   </div>
 
-                  <h1 className="text-4xl leading-tight font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">
+                  <h1 className="text-3xl leading-tight font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">
                     {slide.title}
                   </h1>
 
-                  <p className="mt-5 max-w-xl text-sm leading-7 text-purple-100 sm:text-base sm:leading-8">
+                  <p className="mt-4 max-w-md text-sm leading-6 text-purple-100 sm:mt-5 sm:max-w-xl sm:text-base sm:leading-8">
                     {slide.description}
                   </p>
 
-                  <div className="mt-8 flex flex-wrap items-center gap-4">
+                  <div className="mt-6 flex flex-wrap items-center gap-4 sm:mt-8">
                     <Button
-                      className="h-12 rounded-xl bg-purple-600 px-6 font-bold text-white shadow-lg shadow-purple-950/30 hover:bg-purple-500"
+                      className="h-11 rounded-xl bg-purple-600 px-5 text-sm font-bold text-white shadow-lg shadow-purple-950/30 hover:bg-purple-500 sm:h-12 sm:px-6 sm:text-base"
                       render={<Link href="/books" />}
                       nativeButton={false}
                     >
@@ -117,10 +117,10 @@ export default function HeroBanner() {
         </CarouselContent>
 
         {/* Previous Button */}
-        <CarouselPrevious className="left-3 size-10 border-0 bg-white/90 text-purple-800 shadow-lg hover:bg-purple-600 hover:text-white sm:left-5 sm:size-12 dark:bg-white/10 dark:text-white dark:backdrop-blur-sm dark:hover:bg-brand" />
+        <CarouselPrevious className="left-3 hidden size-10 border-0 bg-white/90 text-purple-800 shadow-lg hover:bg-purple-600 hover:text-white sm:left-5 sm:inline-flex sm:size-12 dark:bg-white/10 dark:text-white dark:backdrop-blur-sm dark:hover:bg-brand" />
 
         {/* Next Button */}
-        <CarouselNext className="right-3 size-10 border-0 bg-white/90 text-purple-800 shadow-lg hover:bg-purple-600 hover:text-white sm:right-5 sm:size-12 dark:bg-white/10 dark:text-white dark:backdrop-blur-sm dark:hover:bg-brand" />
+        <CarouselNext className="right-3 hidden size-10 border-0 bg-white/90 text-purple-800 shadow-lg hover:bg-purple-600 hover:text-white sm:right-5 sm:inline-flex sm:size-12 dark:bg-white/10 dark:text-white dark:backdrop-blur-sm dark:hover:bg-brand" />
       </Carousel>
     </section>
   );

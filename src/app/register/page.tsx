@@ -83,7 +83,7 @@ export default function RegisterPage() {
             <div className="mx-auto grid w-full max-w-6xl overflow-hidden rounded-2xl border border-purple-100 bg-white shadow-xl md:grid-cols-2 dark:border-white/10 dark:bg-surface dark:shadow-black/40">
 
                 {/* Left Side */}
-                <div className="relative flex min-h-87.5 flex-col items-center justify-center overflow-hidden bg-linear-to-br from-[#29216d] via-[#211957] to-[#160d32] px-8 py-12 text-center text-white md:min-h-162.5 md:items-start md:px-12 md:text-left">
+                <div className="relative hidden min-h-87.5 flex-col items-center justify-center overflow-hidden bg-linear-to-br from-[#29216d] via-[#211957] to-[#160d32] px-8 py-12 text-center text-white md:flex md:min-h-162.5 md:items-start md:px-12 md:text-left">
 
                     {/* Background Decorations */}
                     <div className="absolute -left-16 -top-16 size-64 rounded-full border-35 border-white/5" />
@@ -136,7 +136,7 @@ export default function RegisterPage() {
                 </div>
 
                 {/* Right Side - Register Form */}
-                <div className="flex items-center justify-center bg-white px-5 py-10 sm:px-10 md:px-12 dark:bg-surface">
+                <div className="flex items-center justify-center bg-white px-5 py-8 sm:px-10 sm:py-10 md:px-12 dark:bg-surface">
 
                     <div className="w-full max-w-md">
 
