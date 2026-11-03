@@ -8,6 +8,10 @@ export type Book = {
   description: string;
   userName?: string;
   userEmail?: string;
+  addedBy?: {
+    name: string,
+    email: string,
+  } | null;
 };
 
 export type Borrow = {

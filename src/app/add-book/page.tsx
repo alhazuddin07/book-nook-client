@@ -113,11 +113,15 @@ const AddBookPage = () => {
             description: formData.get("description"),
             userName: user?.name ?? "",
             userEmail: user?.email ?? "",
+            addedBy: {
+                name: session?.user?.name,
+                email: session?.user?.email,
+            },
         };
 
         setIsSubmitting(true);
 
-        const {data, error} = await authClient.token();
+        const { data, error } = await authClient.token();
         const token = data?.token;
 
         try {
@@ -207,11 +211,10 @@ const AddBookPage = () => {
                                         setIsDragging(false);
                                         handleFile(e.dataTransfer.files?.[0]);
                                     }}
-                                    className={`relative flex min-h-60 cursor-pointer flex-col items-center justify-center overflow-hidden rounded-2xl border-2 border-dashed px-5 py-8 text-center transition sm:min-h-72.5 ${
-                                        isDragging
+                                    className={`relative flex min-h-60 cursor-pointer flex-col items-center justify-center overflow-hidden rounded-2xl border-2 border-dashed px-5 py-8 text-center transition sm:min-h-72.5 ${isDragging
                                             ? "border-[#4a3ad1] bg-[#eeecff] dark:border-brand dark:bg-brand-soft"
                                             : "border-[#d5d1f5] bg-[#f7f6ff] hover:border-[#b8b2ec] dark:border-white/15 dark:bg-surface-raised dark:hover:border-brand/50"
-                                    }`}
+                                        }`}
                                 >
                                     {imagePreview ? (
                                         <>

@@ -200,12 +200,12 @@ const BorrowBooks = ({ books }: { books: Book }) => {
                             </div>
 
                             <h3 className="font-semibold text-white">
-                                {user?.name}
+                                {books.addedBy?.name || "BookNook Libarary"}
                             </h3>
 
                             <div className="mt-2 flex min-w-0 items-center gap-2 text-xs text-gray-300">
                                 <Mail className="size-3 shrink-0" />
-                                <span className="truncate">{user?.email}</span>
+                                <span className="truncate">{books.addedBy?.email || "Library Collection"}</span>
                             </div>
                         </div>
 
