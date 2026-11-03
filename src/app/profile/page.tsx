@@ -1,6 +1,6 @@
 import EditProfileInfo from '@/components/profile/EditProfileInfo';
+import UpdateImage from '@/components/profile/UpdateImage';
 import { auth } from '@/lib/auth';
-import { Camera } from 'lucide-react';
 import { headers } from 'next/headers';
 import Image from 'next/image';
 
@@ -18,7 +18,7 @@ const ProfilePage = async () => {
     return (
         <div className="min-h-screen bg-gray-50 px-4 py-10 transition-colors duration-300 dark:bg-gray-950">
 
-            <div className="mx-auto max-w-5xl rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition-colors duration-300 dark:border-gray-800 dark:bg-gray-900 md:p-10">
+            <div className="mx-auto max-w-5xl rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition-colors duration-300 dark:border-gray-800 dark:bg-surface/95 md:p-10">
 
                 <div className="grid grid-cols-1 gap-8 md:grid-cols-[180px_1fr]">
 
@@ -34,13 +34,7 @@ const ProfilePage = async () => {
                             />
                         </div>
 
-                        <button
-                            type="button"
-                            className="flex items-center gap-2 rounded-lg border border-purple-300 bg-purple-50 px-3 py-2 text-sm font-semibold text-purple-700 transition hover:bg-purple-100 dark:border-purple-500/40 dark:bg-purple-500/10 dark:text-purple-400 dark:hover:bg-purple-500/20"
-                        >
-                            <Camera size={16} />
-                            Change Photo
-                        </button>
+                        <UpdateImage />
 
                     </div>
 
@@ -73,7 +67,7 @@ const ProfilePage = async () => {
                                     name='name'
                                     type="text"
                                     defaultValue={user?.name}
-                                    className="w-full rounded-lg border border-gray-200 bg-white px-4 py-3 text-sm text-gray-800 outline-none transition focus:border-purple-500 focus:ring-2 focus:ring-purple-100 dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-500"
+                                    className="w-full rounded-lg border border-gray-200 bg-white px-4 py-3 text-sm text-gray-800 outline-none transition focus:border-purple-500 focus:ring-2 focus:ring-purple-100 dark:border-gray-700 dark:bg-surface/95 dark:text-white dark:placeholder:text-gray-500"
                                 />
                             </div>
 
@@ -91,7 +85,7 @@ const ProfilePage = async () => {
                                     name="email"
                                     type="email"
                                     defaultValue={user?.email}
-                                    className="w-full rounded-lg border border-gray-200 bg-white px-4 py-3 text-sm text-gray-800 outline-none transition focus:border-purple-500 focus:ring-2 focus:ring-purple-100 dark:border-gray-700 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-500"
+                                    className="w-full rounded-lg border border-gray-200 bg-white px-4 py-3 text-sm text-gray-800 outline-none transition focus:border-purple-500 focus:ring-2 focus:ring-purple-100 dark:border-gray-700 dark:bg-surface/95 dark:text-white dark:placeholder:text-gray-500"
                                 />
                             </div>
 
