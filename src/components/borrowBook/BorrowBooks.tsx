@@ -245,7 +245,7 @@ const BorrowBooks = ({ books }: { books: Book }) => {
                                             remainingCopies <= 0 ||
                                             checkingBorrow
                                         }
-                                        className="h-12 flex-1 rounded-xl bg-purple-700 text-base font-semibold text-white shadow-md hover:bg-purple-800 disabled:cursor-not-allowed disabled:bg-gray-400"
+                                        className="h-12 p-3 flex-1 rounded-xl bg-purple-700 text-base font-semibold text-white shadow-md hover:bg-purple-800 disabled:cursor-not-allowed disabled:bg-gray-400"
                                     />
                                 }
                             >
